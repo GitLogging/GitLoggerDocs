@@ -1,0 +1,66 @@
+---
+# Feel free to add content and custom Front Matter to this file.
+# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
+title: 'debug page'
+layout: metric
+---
+<style>
+    .collapsed {
+        visibility: collapse;
+    }
+</style>
+
+<!-- debugging styles -->
+<style>
+    #mainContent {
+        border: 4px solid rgba(67, 116, 116, 0.274);
+    }
+
+    body {
+        border: 1px solid rgba(0, 128, 0, 0.336);
+    }
+
+    iframe {
+        border: 1px solid rgba(255, 0, 255, 0.418);
+    }
+
+    #MetricFrame {
+        border: 1px solid rgba(255, 255, 0, 0.445);
+    }
+
+    li {
+        margin-top: 2em;
+        margin-left: 4.5rem;
+        padding-left: 3rem;
+        font-family: 'cascadia code';
+        font-size: 1.6rem;
+        font-size: 0.7rem;
+        font-size: 0.9rem;
+    }
+
+    li a:hover {
+        background-color: hsla(250.5, 71.7%, 62.5%, 0.24);
+    }
+</style>
+
+<div id="mainContent">
+    <h1>Debug page, list of sample queries</h1>
+
+    <ul><li><a href="http://localhost:7071/GetGitLogger?Repository=https://github.com/StartAutomating/GitLogger&Metric=AttachRate&Property=CommitDate,CommitHash,CommitMessage,Deletions,FilesChanged,GitOutputLines,GitUserEmail,GitUserName,InsertedAtUTC,Insertions,RepositoryURL">GetGitLogger?
+ => Repository=https://github.com/StartAutomating/GitLogger<br/>    &Metric=AttachRate<br/>    &Property=CommitDate,CommitHash,CommitMessage,Deletions,FilesChanged,GitOutputLines,GitUserEmail,GitUserName,InsertedAtUTC,Insertions,RepositoryURL</a></li>
+<li><a href="http://localhost:7071/GetGitLogger?Repository=https://github.com/StartAutomating/GitLogger&Property=CommitDate,GitUserName">GetGitLogger?
+ => Repository=https://github.com/StartAutomating/GitLogger<br/>    &Property=CommitDate,GitUserName</a></li>
+<li><a href="http://localhost:7071/GetGitLogger?Repository=https://github.com/StartAutomating/GitLogger&Property=CommitDate,GitUserName&Metric=AttachRate">GetGitLogger?
+ => Repository=https://github.com/StartAutomating/GitLogger<br/>    &Property=CommitDate,GitUserName<br/>    &Metric=AttachRate</a></li>
+<li><a href="http://localhost:7071/GetGitLogger?Repository=https://github.com/StartAutomating/GitLogger&Property=CommitDate,GitUserName&Year=2023&Month=4">GetGitLogger?
+ => Repository=https://github.com/StartAutomating/GitLogger<br/>    &Property=CommitDate,GitUserName<br/>    &Year=2023<br/>    &Month=4</a></li>
+<li><a href="http://localhost:7071/ShowGitLogger?Repository=https://github.com/StartAutomating/GitLogger&Property=CommitDate,GitUserName">ShowGitLogger?
+ => Repository=https://github.com/StartAutomating/GitLogger<br/>    &Property=CommitDate,GitUserName</a></li>
+<li><a href="http://localhost:7071/ShowGitLogger?Repository=https://github.com/StartAutomating/GitLogger&Property=CommitDate,GitUserName&Metric=AttachRate">ShowGitLogger?
+ => Repository=https://github.com/StartAutomating/GitLogger<br/>    &Property=CommitDate,GitUserName<br/>    &Metric=AttachRate</a></li>
+<li><a href="http://localhost:7071/ShowGitLogger?Repository=https://github.com/StartAutomating/Ugit&Metric=BusyDayOfWeek">ShowGitLogger?
+ => Repository=https://github.com/StartAutomating/Ugit<br/>    &Metric=BusyDayOfWeek</a></li>
+<li><a href="http://localhost:7071/ShowGitLogger?Repository=https://github.com/StartAutomating/ugit&Metric=BusyDayOfWeek&Year=2023&Month=01">ShowGitLogger?
+ => Repository=https://github.com/StartAutomating/ugit<br/>    &Metric=BusyDayOfWeek<br/>    &Year=2023<br/>    &Month=01</a></li>
+<li><a href="http://localhost:7071/ShowGitLogger?Repository=https://github.com/StartAutomating/ugit&Metric=CommitRepeats&Year=2023&Month=2">ShowGitLogger?
+ => Repository=https://github.com/StartAutomating/ugit<br/>    &Metric=CommitRepeats<br/>    &Year=2023<br/>    &Month=2</a></li></ul></div>

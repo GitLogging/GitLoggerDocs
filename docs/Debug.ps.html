@@ -1,0 +1,102 @@
+---
+# Feel free to add content and custom Front Matter to this file.
+# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
+title: 'debug page'
+layout: metric
+---
+<style>
+    .collapsed {
+        visibility: collapse;
+    }
+</style>
+
+<!-- debugging styles -->
+<style>
+    #mainContent {
+        border: 4px solid rgba(67, 116, 116, 0.274);
+    }
+
+    body {
+        border: 1px solid rgba(0, 128, 0, 0.336);
+    }
+
+    iframe {
+        border: 1px solid rgba(255, 0, 255, 0.418);
+    }
+
+    #MetricFrame {
+        border: 1px solid rgba(255, 255, 0, 0.445);
+    }
+
+    li {
+        margin-top: 2em;
+        margin-left: 4.5rem;
+        padding-left: 3rem;
+        font-family: 'cascadia code';
+        font-size: 1.6rem;
+        font-size: 0.7rem;
+        font-size: 0.9rem;
+    }
+
+    li a:hover {
+        background-color: hsla(250.5, 71.7%, 62.5%, 0.24);
+    }
+</style>
+
+<div id="mainContent">
+    <h1>Debug page, list of sample queries</h1>
+
+    <!--{
+$urls = @(
+    'http://localhost:7071/ShowGitLogger?Repository=https://github.com/StartAutomating/Ugit&Metric=BusyDayOfWeek'
+    'GetGitLogger?Repository=https://github.com/StartAutomating/GitLogger&Property=CommitDate,GitUserName'
+    'ShowGitLogger?Repository=https://github.com/StartAutomating/GitLogger&Property=CommitDate,GitUserName'
+    'ShowGitLogger?Repository=https://github.com/StartAutomating/GitLogger&Property=CommitDate,GitUserName&Metric=AttachRate'
+    'GetGitLogger?Repository=https://github.com/StartAutomating/GitLogger&Property=CommitDate,GitUserName&Metric=AttachRate'
+    'GetGitLogger?Repository=https://github.com/StartAutomating/GitLogger&Metric=AttachRate&Property=CommitDate,CommitHash,CommitMessage,Deletions,FilesChanged,GitOutputLines,GitUserEmail,GitUserName,InsertedAtUTC,Insertions,RepositoryURL'
+    'GetGitLogger?Repository=https://github.com/StartAutomating/GitLogger&Property=CommitDate,GitUserName&Year=2023&Month=4'
+    'ShowGitLogger?Repository=https://github.com/StartAutomating/ugit&Metric=CommitRepeats&Year=2023&Month=2'
+    'http://localhost:7071/ShowGitLogger?Repository=https://github.com/StartAutomating/ugit&Metric=BusyDayOfWeek&Year=2023&Month=01'
+)
+| Sort-Object -unique
+| ForEach-Object {
+    # quick hack to strip prefixes on this debug page, not for clients
+    $item = $_
+    $item = $item -replace '^https?://localhost:\d+/?'  -replace '^https?://localhost:\d+/?'
+    return $item
+}
+| sort-Object -unique
+| %{
+    $item = $_
+
+    $urlRoot = 'https://gitloggerfunction.azurewebsites.net'
+    $urlRoot = 'http://localhost:7071'
+
+    '{0}/{1}' -f @(
+        $urlRoot ?? ''
+        $item
+    )
+    'view-source:{0}/{1}' -f @(
+        $urlRoot ?? ''
+        $item
+    ) | Out-Null # maybe user links cannot open direct sources?
+} # | Sort-Object -Unique
+$urls
+| %{
+    [pscustomobject]@{
+        href = $_
+        label = $_ -replace '^https?://localhost:\d+/?', ''
+        description = ''
+    }
+} | Join-String -sep "`n" {
+    '<li><a href="{0}">{1}</a></li>' -f @(
+        $_.href
+        $_.label -replace '&', "<br/>    &" -replace '\?', "?`n => "
+    )
+}
+| Join-String -op "<ul>" -os "</ul>"
+
+
+}-->
+
+</div>

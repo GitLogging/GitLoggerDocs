@@ -1,0 +1,25 @@
+---
+layout: default
+title: Know Your Repos
+---
+<div>
+
+It's <span id='TimeStamp' style="display:inline"></span>.
+<script>
+    function UpdateTimestamp() {
+        document.getElementById('TimeStamp').innerText = (new Date()).toLocaleTimeString([],{ hour: "2-digit", minute: "2-digit" })
+    }
+    UpdateTimestamp()
+    setInterval(UpdateTimestamp, 5087)
+    
+</script>
+<br/>
+<br/>
+Do you know what your's going on in your repos?
+<br/>
+<br/>
+GitLogger lets you monitor developement activity, so you can always know what your devs are doing.
+<br/>
+<br/>
+GitLogger gives you <a href='/GitLogger-Metrics'>many metrics</a> to show what's happenning, and lets you <a href="/GitLogger-Queries">query your logs</a>
+</div>

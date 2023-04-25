@@ -1,0 +1,39 @@
+---
+layout: default
+---
+<style>
+    th, td {
+        padding: .25em
+    }    
+</style>
+
+At GitLogger, we believe Knowledge is Power, and Standards are Good.
+<br/>
+
+To that end, we have standardized how we derive metrics from git logs.
+<br/>
+
+You can easily graph or query any named metric, and use them to help <a href='/Know-Your-Repos'>know your repos</a>
+<br/>
+
+<table>
+    <tr>
+        <th>
+            MetricName
+        </th>
+        <th>
+            Synopsis
+        </th>
+        <th>
+            Description
+        </th>
+    </tr>
+    {% for metric in site.data.GitLoggerMetrics %}
+    <tr>
+        <td>{{ metric.MetricName }}</td>
+        <td>{{ metric.Synopsis }}</td>
+        <td>{{ metric.Description }}</td>
+    </tr>    
+    {% endfor %}
+</table>
+
