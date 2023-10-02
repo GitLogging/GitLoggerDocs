@@ -5,7 +5,7 @@ title: MyRepos
 <style>
     .collapsed {
         visibility: collapse;
-    }    
+    }
 </style>
 
 <script>
@@ -26,14 +26,14 @@ title: MyRepos
         const $metricFrame = document.getElementById("MetricFrame");
         // let url_requestGetLogger = `https://gitloggerfunction.azurewebsites.net/GetGitLogger?Repository=${repoUrl}&Metric=${metricName}`
         // let url_requestShowLogger = `https://gitloggerfunction.azurewebsites.net/ShowGitLogger?Repository=${repoUrl}&Metric=${metricName}`
-        // let serverRoot = `https://gitloggerfunction.azurewebsites.net`        
-        var serverRoot
-        if (window.location.host.indexOf('localhost') >= 0) {
-            serverRoot = `http://localhost:7071`
-        }
-        else {
-            serverRoot = `https://gitloggerfunction.azurewebsites.net/`
-        }
+        // let serverRoot = `https://gitloggerfunction.azurewebsites.net`
+        // var serverRoot
+        // if (window.location.host.indexOf('localhost') >= 0) {
+        //     serverRoot = `http://localhost:7071`
+        // }
+        // else {
+        let serverRoot = `https://gitloggerfunction.azurewebsites.net/`
+        // }
         // let url_requestGetLogger = `${serverRoot}/GetGitLogger?Repository=${repoUrl}&Metric=${metricName}`
         let url_requestShowLogger = `${serverRoot}/ShowGitLogger?Repository=${repoUrl}&Metric=${metricName}`
 
