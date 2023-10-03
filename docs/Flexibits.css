@@ -18,7 +18,7 @@ Flexibits lets you use flex attributes without having to flex to many mental mus
 */
 
 .flexible, .flexi-bits {
-    display: flex;    
+    display: flex;
 }
 
 .flexRow, .flexi-row {
@@ -61,13 +61,13 @@ Flexibits lets you use flex attributes without having to flex to many mental mus
     flex-direction: row;
 }
 
-@media (max-width: 960px) {    
+@media (max-width: 960px) {
     .rowOrColumn, .flexi-row-or-column {
         flex-direction: column;
     }
 }
 
-@media (min-width: 1921px) {    
+@media (min-width: 1921px) {
   body {
       font-size: 2em;
   }
@@ -144,7 +144,7 @@ A simple fractional box model (beween 1-10):
 .collapsible {
   visibility: visible;
 }
-  
+
 
 @media (max-width: 960px) {
     .collapsible {

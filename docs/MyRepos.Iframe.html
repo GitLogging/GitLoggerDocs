@@ -1,0 +1,104 @@
+---
+layout: metric
+title: MyReposIframe
+---
+<style>
+    .collapsed {
+        visibility: collapse;
+    }
+</style>
+
+<script>
+    function AddRepo() {
+
+        if (typeof (Storage) == "undefined") {
+            throw "Cannot save themes without HTML5 Local Storage"
+        }
+
+        // prefix url if not already prefixed by github
+        let repoUrl = document.getElementById("RepositoryURL").value
+        if (!repoUrl.toLowerCase().startsWith('https://github.com')) {
+            repoUrl = `https://github.com/${repoUrl}`
+        }
+        if (!repoUrl) return
+        console.time()
+        let metricName = document.getElementById("MetricName").value
+        const $metricFrame = document.getElementById("MetricFrame");
+        // let url_requestGetLogger = `https://gitloggerfunction.azurewebsites.net/GetGitLogger?Repository=${repoUrl}&Metric=${metricName}`
+        // let url_requestShowLogger = `https://gitloggerfunction.azurewebsites.net/ShowGitLogger?Repository=${repoUrl}&Metric=${metricName}`
+        // let serverRoot = `https://gitloggerfunction.azurewebsites.net`
+        var serverRoot
+        if (window.location.host.indexOf('localhost') >= 0) {
+            serverRoot = `http://localhost:7071`
+        }
+        else {
+            serverRoot = `https://gitloggerfunction.azurewebsites.net/`
+        }
+        // let url_requestGetLogger = `${serverRoot}/GetGitLogger?Repository=${repoUrl}&Metric=${metricName}`
+        let url_requestShowLogger = `${serverRoot}/ShowGitLogger?Repository=${repoUrl}&Metric=${metricName}`
+
+        const $monthParam = document.getElementById('MonthParam')
+
+        let [year, month] = $monthParam.value.split('-')
+
+        // simplify append using query string function?
+
+        if (year) {
+            url_requestShowLogger = `${url_requestShowLogger}&Year=${year}`
+        }
+        if (month) {
+            url_requestShowLogger = `${url_requestShowLogger}&Month=${month}`
+        }
+
+        // '[year, month] = $("#MonthParam").value.split('-')'
+
+        // console.log("Repo: " + repoUrl)
+        // console.log("Metric: " + metricName)
+        console.table({
+            "Domain": serverRoot,
+            "RepoUrl": repoUrl, "MetricName": metricName,
+            // "url_requestGetLogger": url_requestGetLogger,
+            "url_requestShowLogger": url_requestShowLogger,
+            "year": year,
+            "month": month,
+            "month_input": $monthParam.Value
+        })
+        console.trace();
+
+        /*
+        test response on a /api/GetGitLogger API call.
+        if valid, then the iframe invokes /api/ShowGitLogger API call
+
+        Future: Should either cache or convert json payload.
+        otherwise this calls 2x for one "event".
+        the same arguments to /api/GetGit{star}/ and / api / ShowGit{star} */
+
+        $metricFrame.classList.remove('collapsed')
+        $metricFrame.src = url_requestShowLogger;
+    }
+</script>
+<!-- debugging style -->
+<div id="mainContent">
+    <div id="mainFormContent">
+
+        <label for="RepositoryURL">Choose A Repository:</label>
+        <input type="url" id="RepositoryURL" name="url" value="StartAutomating/GitLogger" />
+        <select name="SelectedMetric" id="MetricName">
+            {% for metric in site.data.GitLoggerMetrics %}
+            <option value="{{ metric.MetricName }}">{{ metric.MetricName }}</option>
+            {% endfor %}
+        </select>
+        <input type="month" id="MonthParam" />
+
+        <a href="javascript:void(0)" onclick="AddRepo()">
+            </a>
+
+    </div>
+    <!-- <iframe class="collapsed" id="MetricFrame" style="width:100%;min-height:66%; margin-top:-5%" frameBorder="0" scrolling="no" width="1024" height="768">
+</iframe> -->
+    <div style="width:80%;height:80%;margin-left: auto;margin-right: auto;" id="MetricStage">
+        <iframe id="MetricFrame" style="width:100%;  height:100%" frameBorder="0" scrolling="no">
+
+        </iframe>
+    </div>
+</div>

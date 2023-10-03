@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<head>
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+    <script type="module" src="module/main.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="style/Flexbits.css" />
+    <link rel="stylesheet" type="text/css" href="style/iceberg-dark.css" />
+    <link href="style/base.css" rel="stylesheet">
+    <!-- toggle minimal nonflexbits style on/off: -->
+    <!--
+    <style>
+        body {
+            font-family: "Comfortaa";
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        @media (max-width: 1920px) {
+            body {
+                font-size: 1.25em;
+            }
+        }
+
+        @media (min-width: 1921px) {
+            body {
+                font-size: 2.5em;
+            }
+        }
+    </style> -->
+
+</head>
+
+<body>
+        <style>
+        .innerChartFlex
+        {
+            display: flex;
+            /* border: 2px solid red; */
+            margin: auto;
+            /* margin-left: 100px; */
+            margin-right: 100px;
+            width: 80%;
+            /* border: 2px solid orange; */
+        }
+        .innerChartFlex git-logger-chart {
+            /* border: 2px solid blue; */
+            /* gap: 40px; */
+        }
+
+
+    </style>
+    <!-- new layout:
+        <div.flexParent>
+            <div.chartAndSelectorRoot2>
+                title
+                <git-logger-chart>
+
+            <div.chartAndSelectorRoot2>
+                another title
+                <year-month-selector>
+                <git-logger-chart>
+    -->
+    <style>
+
+        .consoleLogBuffer {
+            font-size: 16px;
+            color: #647e8f;
+            font-family: 'cascadia code pl';
+            position: fixed;
+            left: 500px;
+            opacity: 60%;
+            transition-property: opacity, color;
+            transition-property: all;
+            transition-duration: 0.3s;
+            right: 30px;
+            left: auto;
+            max-width: 70%;
+        }
+        .consoleLogBuffer.plusDebugStyle {
+            display: block;
+            border: 2px solid aliceblue;
+            border: 2px solid #647e8f;
+        }
+        .consoleLogBuffer.plusDebugStyle:hover {
+            font-size: 26px;
+            display: block;
+            opacity: 80%;
+        }
+        .consoleLogBuffer.hideIt {
+            display: none;
+        }
+        .consoleLogBuffer.showIt {
+            display: block;
+        }
+
+    </style>
+    <div>
+      <div class="consoleLogBuffer plusDebugStyle"></div>
+
+    <h2><a href="https://github.com/StartAutomating">StartAutomating</a></h2>
+    <div class="flexParent">
+        <div class='chartAndSelectorRoot2'>
+
+            <year-month-selector
+                id="year-month-selector"
+                chart-id="chart-one"
+                label-text="Commit Cadence For"
+                min-date="2020-01-01"
+                max-date="2024-01-01"
+            ></year-month-selector>
+            <git-logger-chart
+                id="chart-one"
+                repo="https://github.com/StartAutomating/GitLogger"
+                label-text="GitLogger"
+                Year="2023"
+                Month="05"
+                metric="CommitCadence"
+                no-ui="false"
+                chartType="bar"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+        </div>
+        <div class='chartAndSelectorRoot2'>
+            <year-month-selector
+                id="year-month-selector2"
+                chart-id="chart-two"
+                label-text="Commits By Language for"
+            ></year-month-selector>
+            <git-logger-chart
+                id="chart-two"
+                repo="https://github.com/StartAutomating/GitLogger"
+                label-text="GitLogger"
+                Year="2023"
+                Month="05"
+                metric="commitsByLanguage"
+                chartType="bar"
+
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+        </div>
+    </div>
+    <div class="flexParent">
+        <div class='chartAndSelectorRoot2'>
+            <git-logger-chart
+                id="chart-three"
+                repo="https://github.com/StartAutomating/GitLogger"
+                label-text="GitLogger"
+                Year="2023"
+                Month="05"
+                metric="commitsByLanguage"
+                chartType="doughnut"
+
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+        </div>
+    </div>
+    <h2>StartAutomating Busy Month</h2>
+    <div class="flexParent">
+        <!--
+
+
+        <div class='chartAndSelectorRoot2'>
+
+            <year-month-selector
+                id="year-month-selector-four"
+                chart-id="chart-four"
+                min-date="2023-02-01"
+                max-date="2023-09-01"
+                label-text=""
+            ></year-month-selector>
+            <git-logger-chart
+                id="chart-four"
+                repo="https://github.com/StartAutomating/GitLogger"
+                label-text="GitLogger"
+                Year="2023"
+                Month="05"
+                metric="CommitCadence"
+                chartType="bar"
+                max-width="200px"
+                maxHeight="200px"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+        </div>
+        -->
+       <div class='chartAndSelectorRoot2'>
+
+            <git-logger-chart
+                    id="chart-six"
+                    label-text="Pipescript 2023"
+                    repo="https://github.com/StartAutomating/Pipescript"
+                    Year="2023"
+                    metric="BusyMonth"
+                    chartType="bar"
+                    title="stuff"
+                    class="gitLoggerChartRootElement"
+                    >
+            </git-logger-chart>
+        </div>
+        <div class='chartAndSelectorRoot2'>
+
+            <git-logger-chart
+                    id="chart-five"
+                    label-text="Pipescript 2022"
+                    repo="https://github.com/StartAutomating/Pipescript"
+                    Year="2022"
+                    metric="BusyMonth"
+                    chartType="bar"
+                    title="stuff"
+                    class="gitLoggerChartRootElement"
+                    >
+            </git-logger-chart>
+        </div>
+       <div class='chartAndSelectorRoot2'>
+
+            <git-logger-chart
+                    id="chart-six"
+                    label-text="ugit 2023"
+                    repo="https://github.com/StartAutomating/ugit"
+                    Year="2023"
+                    metric="BusyMonth"
+                    chartType="bar"
+                    title="stuff"
+                    class="gitLoggerChartRootElement"
+                    >
+            </git-logger-chart>
+        </div>
+        <div class='chartAndSelectorRoot2'>
+
+            <git-logger-chart
+                    id="chart-five"
+                    label-text="ugit 2022"
+                    repo="https://github.com/StartAutomating/ugit"
+                    Year="2022"
+                    metric="BusyMonth"
+                    chartType="bar"
+                    title="stuff"
+                    class="gitLoggerChartRootElement"
+                    >
+            </git-logger-chart>
+        </div>
+
+    </div>
+
+
+    <!--
+        for interactive DOM testing:
+
+            ym = document.getElementsByTagName('year-month-selector')[0]
+            ym.getModel()
+    -->
+    <!-- <script type="text/javascript" src="GitLogger-WebComponent.debug.js"></script> -->
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</body>
+
+</html>
