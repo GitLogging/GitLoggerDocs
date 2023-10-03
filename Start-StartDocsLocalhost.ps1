@@ -44,8 +44,10 @@ Push-Location -stack 'jekyll' $Jekyll_BuildCfg.StaticSiteRoot
 
 # others: '--incremental'
 if ($Jekyll_BuildCfg.AutoOpen) {
+    sleep -Seconds 7
     Start-Process -FilePath 'http://localhost:4000'
 }
+
 if ($Jekyll_BuildCfg.LiveReload) {
     # else: & $BinBundle @('exec', 'jekyll', 'serve', '--livereload')
     #throws: 'bundle.bat bundle' is not recognized as a name of a cmdlet,
@@ -54,5 +56,6 @@ if ($Jekyll_BuildCfg.LiveReload) {
 else {
     &  'Bundle' @('exec', 'jekyll', 'serve')
 }
+
 
 Pop-Location -stack 'jekyll'
