@@ -432,6 +432,11 @@ h3 {
         */
 
         const shadow = this.#shadow
+        let pathJekyllPrefix = '../style/' ?? '' // to work around Jekyll's relative paths
+        pathJekyllPrefix = ''
+        pathJekyllPrefix = '../style/'
+
+        // pathJekyllPrefix = 'style/'
         shadow.replaceChildren();
         if ( this.verboseLogging ) {
             console.log( "[GitLoggerChartElement]::rebuildAll [docs/module/gitLoggerChartElement.js]" )
@@ -452,18 +457,20 @@ h3 {
         // <link rel="stylesheet" type="text/css" href="style/iceberg-dark.css" />
         // <link href="style/base.css" rel="stylesheet"></link>
         const style1 = document.createElement( 'link' )
-        style1.setAttribute( 'href', 'style/Flexbits.css' )
+        style1.setAttribute( 'href', `${ pathJekyllPrefix }Flexbits.css` )
+        style1.setAttribute( 'href', `style/Flexbits2.css` )
+        style1.setAttribute( 'href', `style/Flexbits1.css` )
         style1.setAttribute( 'rel', 'stylesheet' )
         shadow.appendChild( style1 )
         const style2 = document.createElement( 'link' )
-        style2.setAttribute( 'href', 'style/iceberg-dark.css' )
+        style2.setAttribute( 'href', `${ pathJekyllPrefix }iceberg-dark.css` )
         style2.setAttribute( 'rel', 'stylesheet' )
         shadow.appendChild( style2 )
         const style3 = document.createElement( 'link' )
-        style3.setAttribute( 'href', 'style/base.css' )
+        style3.setAttribute( 'href', `${ pathJekyllPrefix }base.css` )
         style3.setAttribute( 'rel', 'stylesheet' )
         const style4 = document.createElement( 'link' )
-        style4.setAttribute( 'href', 'style/gitLoggerChart.css' )
+        style4.setAttribute( 'href', `${ pathJekyllPrefix }gitLoggerChart.css` )
         style4.setAttribute( 'rel', 'stylesheet' )
         // shadow.appendChild(style3)
 
@@ -474,8 +481,15 @@ h3 {
 
         // div.style = `position: relative; height:80vh; width:80vw`
         // <link href="style/base.css" rel="stylesheet"></link>
+        const debugStyle = document.createElement( 'link' )
+        debugStyle.setAttribute( 'href', `${ pathJekyllPrefix }usingDebug.css` )
+        debugStyle.setAttribute( 'rel', 'stylesheet' )
+        if ( this.hasAttribute( 'debug-css' ) ) {
+            shadow.appendChild( debugStyle );
+        }
+
         const tempStyle = document.createElement( 'link' )
-        tempStyle.setAttribute( 'href', 'style/base.css' )
+        tempStyle.setAttribute( 'href', `${ pathJekyllPrefix }base.css` )
         tempStyle.setAttribute( 'rel', 'stylesheet' )
         shadow.appendChild( tempStyle );
 

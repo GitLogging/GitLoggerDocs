@@ -145,7 +145,7 @@ export class YearMonthSelector extends HTMLElement {
         */
         if ( params.year ) {
             this.setAttribute( 'year', merged.year )
-        }
+        }   
         if ( params.month ) {
             this.setAttribute( 'month', paddedMonth )
         }
@@ -189,7 +189,11 @@ export class YearMonthSelector extends HTMLElement {
          **/
         const chart = this.#attachedDom
         const state = chart.getQueryModel()
-        const newYear = state.year ?? this.getAttribute( 'year' )
+
+        const newYear =
+            state.year ??
+                this.getAttribute( 'year' )
+
         const newMonth = state.month ?? this.getAttribute( 'month' )
         // return
 

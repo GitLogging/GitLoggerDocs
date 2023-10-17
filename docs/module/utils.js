@@ -87,7 +87,7 @@ export function dropBlankProperties ( target, options ) {
                 if ( config.dropNull && value === undefined ) {
                     return false
                 }
-                if ( config.dropWhitespace && ( !value.toString().match( anyNonWhitespace_re ) ) ) {
+                if ( config.dropWhitespace && ( ! value?.toString().match( anyNonWhitespace_re ) ) ) {
                     return false
                 }
                 return true
@@ -113,8 +113,11 @@ export function newArrayIntList ( count ) {
      * @description returns an array from the range: [0, count) , max exclusive
      * @param {number} count - the maximum value, exclusive
      * @returns {array} - an array of integers from the range: [0, count)
-     * @example newArrayIntList(3) // # output: [0, 1, 2 ]
-     * @example newArrayRange( 0, count - 1, 1) // # output: [0, 1, 2]
+     * @example newArrayIntList(4)     // [ 0, 1, 2, 3 ]
+     * @example newArrayRange(0, 3)    // [ 0, 1, 2, 3 ]
+     * @example newArrayRange(0, 3, 1) // [ 0, 1, 2, 3 ]
+     * @example newArrayRange(0, 6, 2) // [ 0, 2, 4, 6 ]
+     * @example newArrayRange(4,13, 3) // [ 4, 7, 10, 13 ]
      **/
     return Array.from( { length: count }, ( value, index ) => index );
 }
@@ -125,13 +128,16 @@ export function newArrayRange ( start, stop, step = 1 ) {
      * @param {number} stop - the maximum value, inclusive
      * @param {number} step - the step size, default is 1
      * @returns {array} - an array of integers from the range: [start, stop]
+     * @example newArrayIntList(4)     // [ 0, 1, 2, 3 ]
+     * @example newArrayRange(0, 3)    // [ 0, 1, 2, 3 ]
      * @example newArrayRange(0, 3, 1) // [ 0, 1, 2, 3 ]
+     * @example newArrayRange(0, 6, 2) // [ 0, 2, 4, 6 ]
      * @example newArrayRange(4,13, 3) // [ 4, 7, 10, 13 ]
      **/
-    return Array.from(
-        { length: ( stop - start ) / step + 1 },
-        ( value, index ) =>
-            start + index * step )
+    return Array.from( // create an array from the next step
+        { length: ( stop - start ) / step + 1 }, // create an object with a length property
+        ( value, index ) => // create a value for each index in the object
+            start + index * step ) // starting value + index * step size
 }
 export function randomItem ( list ) {
     /**
