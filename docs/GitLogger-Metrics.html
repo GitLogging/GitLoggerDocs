@@ -1,22 +1,328 @@
----
-layout: default
----
+<head>
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+    <script type="module" src="module/main.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet'>
+    <link href="style/gitlogger-chart.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style/iceberg-dark.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="Flexibits.css" /> -->
+    <!-- <link rel="stylesheet" type="text/css" href="style/Flexbits.css" /> -->
+    <!-- <link rel="stylesheet" type="text/css" href="./style/Flexbits1.css" /> -->
+    <!-- <link rel="stylesheet" type="text/css" href="./style/Flexbits2.css" /> -->
+    <link rel="stylesheet" type="text/css" href="./style/base.simplified.css" />
+</head>
 <style>
     th, td {
         padding: .25em
     }
+    .hide {
+        display: none;
+    }
+
+    div.chartPairHorizontal {
+        display: flex;
+        flex-direction: row;
+    }
+    div.topBannerText {
+        text-align: center;
+        margin: 20px 5%;
+    }
+    div.topBannerText p {
+        font-size: 1.8rem;
+    }
 </style>
 
-At GitLogger, we believe Knowledge is Power, and Standards are Good.
-<br/>
 
-To that end, we have standardized how we derive metrics from git logs.
-<br/>
 
-You can easily graph or query any named metric, and use them to help <a href='/Know-Your-Repos'>know your repos</a>
-<br/>
+<!-- <script type="module" src="../module/main.js"></script>
+<link href="../style/gitlogger-chart.css" rel="stylesheet"> -->
+<div class="topBannerText">
 
-<table>
+
+<p>
+        At GitLogger, we believe Knowledge is Power, and Standards are Good.
+        <br/>
+        To that end, we have standardized how we derive metrics from git logs.
+        <br/>
+        You can easily graph or query any named metric, and use them to help
+        <a href='/Know-Your-Repos'>know your repos</a>
+    </p>
+
+
+
+
+</div>
+
+
+<!-- <div>
+
+    <git-logger-chart
+        id="chart-one"
+        repo="https://github.com/StartAutomating/GitLogger"
+        label-text="GitLogger"
+        Year="2023"
+        Month="05"
+        metric="CommitCadence"
+        no-ui="false"
+        chartType="bar"
+        class="gitLoggerChartRootElement"
+    >
+    </git-logger-chart>
+</div> -->
+
+    <!-- <h2><a href="https://github.com/StartAutomating">StartAutomating</a></h2> -->
+<div class="flexParent">
+    <div class='chartSelectorPair' id='chartPairAttachRate'>
+            <year-month-selector
+                id="chart-attach-rate-selector"
+                chart-id="chart-attach-rate"
+                label-text="Attach Rate for"
+                min-date="2020-01-01"
+                max-date="2024-01-01"
+            ></year-month-selector>
+            <git-logger-chart
+                id="chart-attach-rate"
+                repo="https://github.com/StartAutomating/GitLogger"
+                label-text="GitLogger"
+                Year="2023"
+                Month="04"
+                metric="AttachRate"
+                chartType="bar"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+        </div>
+    <div class='chartSelectorPair' id='chartPairBusyDayOfWeek'>
+        <year-month-selector
+            id="chart-busy-day-of-week-selector"
+            chart-id="chart-busy-day-of-week"
+            label-text="BusyDayOfWeek for"
+            min-date="2020-01-01"
+            max-date="2024-01-01"
+        ></year-month-selector>
+        <git-logger-chart
+            id="chart-busy-day-of-week"
+            repo="https://github.com/StartAutomating/GitLogger"
+            label-text="GitLogger"
+            Year="2023"
+            Month="04"
+            metric="BusyDayOfWeek"
+            chartType="bar"
+            class="gitLoggerChartRootElement"
+            >
+        </git-logger-chart>
+    </div>
+    <div class='chartSelectorPair' id='chartPairBusyMonth'>
+        <!-- <year-month-selector
+            id="chart-busy-month-selector"
+            chart-id="chart-busy-month"
+            label-text="BusyMonth for"
+            min-date="2020-01-01"
+            max-date="2024-01-01"
+        ></year-month-selector> -->
+        <div class='chartPairHorizontal'>
+        <git-logger-chart
+            id="chart-busy-month"
+            repo="https://github.com/StartAutomating/ugit"
+            label-text="ugit"
+            Year="2023"
+            metric="BusyMonth"
+            chartType="bar"
+            class="gitLoggerChartRootElement"
+            >
+        </git-logger-chart>
+        <git-logger-chart
+            id="chart-busy-month"
+            repo="https://github.com/StartAutomating/GitLogger"
+            label-text="GitLogger"
+            Year="2023"
+            metric="BusyMonth"
+            chartType="bar"
+            class="gitLoggerChartRootElement"
+            >
+        </git-logger-chart>
+
+        </div>
+    </div>
+    <div class='chartSelectorPair' id='chartPairChurn'>
+        <!-- <year-month-selector
+            id="chart-churn-selector"
+            chart-id="chart-churn"
+            label-text="Churn for"
+            min-date="2020-01-01"
+            max-date="2024-01-01"
+        ></year-month-selector> -->
+        <div class='chartPairHorizontal'>
+            <git-logger-chart
+                id="chart-churn-a"
+                repo="https://github.com/StartAutomating/ugit"
+                label-text="ugit"
+                Year="2023"
+                metric="Churn"
+                chartType="bar"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+
+            <div class="flexPair">
+                <year-month-selector
+                    id="chart-churn-a-selector"
+                    chart-id="chart-churn-b"
+                    label-text="Churn for"
+                    min-date="2020-01-01"
+                    max-date="2024-01-01"
+                ></year-month-selector>
+                <git-logger-chart
+                    id="chart-churn-b"
+                    repo="https://github.com/StartAutomating/GitLogger"
+                    label-text="GitLogger"
+                    Year="2023"
+                    metric="Churn"
+                    chartType="bar"
+                    class="gitLoggerChartRootElement"
+                    >
+                </git-logger-chart>
+            </div>
+            <git-logger-chart
+                id="chart-churn-c"
+                repo="https://github.com/StartAutomating/Pipescript"
+                label-text="Pipescript"
+                Year="2023"
+                metric="Churn"
+                chartType="bar"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+        </div><!-- end chartPairHorizontal -->
+    </div> <!-- end chartSelectorPair -->
+    <!-- <div class='chartSelectorPair' id='chartPairCommitCadence'>
+
+        <div class='chartPairHorizontal'> -->
+            <!-- <git-logger-chart
+                id="chart-commit-cadence"
+                repo="https://github.com/StartAutomating/ugit"
+                label-text="ugit"
+                Year="2023"
+                metric="CommitCadence"
+                chartType="bar"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+            <git-logger-chart
+                id="chart-commit-cadence"
+                repo="https://github.com/StartAutomating/GitLogger"
+                label-text="GitLogger"
+                Year="2023"
+                metric="CommitCadence"
+                chartType="bar"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart> -->
+
+        <!-- </div>end chartPairHorizontal -->
+    <!-- </div> end chartSelectorPair -->
+
+    <div class='chartSelectorPair' id='chartPairCommitCadence'>
+            <!-- <year-month-selector
+                id="chart-churn-selector"
+                chart-id="chart-churn"
+                label-text="CommitCadence for"
+                min-date="2020-01-01"
+                max-date="2024-01-01"
+            ></year-month-selector> -->
+        <div class='chartPairHorizontal'>
+            <git-logger-chart
+                id="chart-commit-cadence-a"
+                repo="https://github.com/StartAutomating/ugit"
+                label-text="ugit"
+                Year="2023"
+                metric="CommitCadence"
+                chartType="bar"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+
+            <div class="flexPair">
+                <year-month-selector
+                    id="chart-commit-cadence-a-selector"
+                    chart-id="chart-commit-cadence-b"
+                    label-text="CommitCadence for"
+                    min-date="2020-01-01"
+                    max-date="2024-01-01"
+                ></year-month-selector>
+                <git-logger-chart
+                    id="chart-commit-cadence-b"
+                    repo="https://github.com/StartAutomating/GitLogger"
+                    label-text="GitLogger"
+                    Year="2023"
+                    metric="CommitCadence"
+                    chartType="bar"
+                    class="gitLoggerChartRootElement"
+                    >
+                </git-logger-chart>
+            </div>
+            <git-logger-chart
+                id="chart-commit-cadence-c"
+                repo="https://github.com/StartAutomating/Pipescript"
+                label-text="Pipescript"
+                Year="2023"
+                metric="CommitCadence"
+                chartType="bar"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+        </div><!-- end chartPairHorizontal -->
+    </div> <!-- end chartSelectorPair -->
+    <div class='chartSelectorPair' id='chartPairCommitsByLanguage'>
+        <div class='chartPairHorizontal'>
+            <git-logger-chart
+                id="chart-commits-by-language-a"
+                repo="https://github.com/StartAutomating/ugit"
+                label-text="ugit"
+                Year="2023"
+                metric="CommitsByLanguage"
+                chartType="doughnut"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+
+            <div class="flexPair">
+                <year-month-selector
+                    id="chart-commits-by-language-a-selector"
+                    chart-id="chart-commits-by-language-b"
+                    label-text="CommitsByLanguage for"
+                    min-date="2020-01-01"
+                    max-date="2024-01-01"
+                ></year-month-selector>
+                <git-logger-chart
+                    id="chart-commits-by-language-b"
+                    repo="https://github.com/StartAutomating/GitLogger"
+                    label-text="GitLogger"
+                    Year="2023"
+                    metric="CommitsByLanguage"
+                    chartType="doughnut"
+                    class="gitLoggerChartRootElement"
+                    >
+                </git-logger-chart>
+            </div>
+            <git-logger-chart
+                id="chart-commits-by-language-c"
+                repo="https://github.com/StartAutomating/Pipescript"
+                label-text="Pipescript"
+                Year="2023"
+                metric="CommitsByLanguage"
+                chartType="doughnut"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+        </div><!-- end chartPairHorizontal -->
+    </div> <!-- end chartSelectorPair -->
+
+
+</div><!-- end root .flexParent -->
+
+
+<!--
+<table id="metricNameTable">
     <tr>
         <th>
             MetricName
@@ -30,10 +336,299 @@ You can easily graph or query any named metric, and use them to help <a href='/K
     </tr>
     {% for metric in site.data.GitLoggerMetrics %}
     <tr>
-        <td>{{ metric.MetricName }}</td>
+        <td>
+            <a href="#{{ metric.MetricName }}">{{ metric.MetricName }}</a>
+        </td>
         <td>{{ metric.Synopsis }}</td>
         <td>{{ metric.Description }}</td>
     </tr>
     {% endfor %}
+</table> -->
+
+
+<table id="metricNameTable">
+    <tr>
+        <th>
+            MetricName
+        </th>
+        <th>
+            Synopsis
+        </th>
+        <th>
+            Description
+        </th>
+    </tr>
+
+    <tr>
+        <td>
+            <a href="#AttachRate">AttachRate</a>
+        </td>
+        <td>Attach Rate by User</td>
+        <td>Gets the percentage of commit messages that reference an issue number or pull request.</td>
+    </tr>
+
+    <tr>
+        <td>
+            <a href="#BusyDayOfWeek">BusyDayOfWeek</a>
+        </td>
+        <td>Busy Day Of Week</td>
+        <td>Shows total lines changed by day of week.</td>
+    </tr>
+
+    <tr>
+        <td>
+            <a href="#BusyMonth">BusyMonth</a>
+        </td>
+        <td>Busy Month</td>
+        <td>Shows total lines changed by month of year.</td>
+    </tr>
+
+    <tr>
+        <td>
+            <a href="#Churn">Churn</a>
+        </td>
+        <td>Average number of files in a commit</td>
+        <td>Gets the average number of files in a commit by a contributer</td>
+    </tr>
+
+    <tr>
+        <td>
+            <a href="#CommitCadence">CommitCadence</a>
+        </td>
+        <td>Commit Cadence</td>
+        <td>Gets the total Commits per contributor and divides by their active timeframe.</td>
+    </tr>
+
+    <tr>
+        <td>
+            <a href="#CommitsByLanguage">CommitsByLanguage</a>
+        </td>
+        <td>Languages referenced in commits</td>
+        <td>Gets the percentage of commits referencing programming languages.</td>
+    </tr>
+
+    <tr>
+        <td>
+            <a href="#CommitCount">CommitCount</a>
+        </td>
+        <td>Commit Counts</td>
+        <td>Gets the number of commits by each contributor.</td>
+    </tr>
+
+    <tr>
+        <td>
+            <a href="#CommitRepeats">CommitRepeats</a>
+        </td>
+        <td>Commit Repeats</td>
+        <td>Total Repeated Commit Messages by User</td>
+    </tr>
+
+    <tr>
+        <td>
+            <a href="#IssueBreadth">IssueBreadth</a>
+        </td>
+        <td>Issue Breadth</td>
+        <td>Gets the distinct number of issues mentioned in commits by user.</td>
+    </tr>
+
+    <tr>
+        <td>
+            <a href="#LineCadence">LineCadence</a>
+        </td>
+        <td>Line Cadence</td>
+        <td>The total number of lines changed per user, divided by the time between commits.</td>
+    </tr>
+
+    <tr>
+        <td>
+            <a href="#LinesChanged">LinesChanged</a>
+        </td>
+        <td>Lines Changed</td>
+        <td>Lines Changed by a user</td>
+    </tr>
+
+    <tr>
+        <td>
+            <a href="#NetLineCadence">NetLineCadence</a>
+        </td>
+        <td>Net Line Cadence</td>
+        <td>The insertions-deletions changed per user, divided by the time between commits.</td>
+    </tr>
+
+    <tr>
+        <td>
+            <a href="#NetLinesChanged">NetLinesChanged</a>
+        </td>
+        <td>Net Lines Changed</td>
+        <td>Total Insertions - Total Deletions by UserName</td>
+    </tr>
+
 </table>
 
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script type="text/javascript">
+
+var chartPairs
+var tableToc
+
+function hideAllCharts() {
+    /**
+     * @description hides all examples (for jekyll page)
+     */
+    chartPairs.forEach( (pair) => {
+        pair.classList.add('hide')
+    })
+
+    // ex: document.querySelectorAll('#idPairCommitCadence')[0].classList.add('hide')
+}
+function showPair( name ) {
+    /**
+     * @description shows pairs (for jekyll page)
+     * @param {string} name
+     */
+    const selectorById = `#${ name }` // chart-attach-rate-selector
+    // document.querySelectorAll('#idPairCommitCadence')[0].classList.add('hide')
+    // document.querySelector('#idPairCommitCadence').classList.remove('hide')
+    // document.querySelector('#idPairCommitCadence').classList.add('hide')
+
+    // document.querySelectorAll('#chart-attach-rate-selector')[0].parentNode.classList.remove('hide')
+    // document.querySelectorAll( name  )[0].parentNode.classList.remove('hide')
+    // return
+
+    // chartPairs.forEach((e) => e.classList.remove('hide') )
+
+    // const found =
+    //     document.querySelectorAll(selectorById) // chart-attach-rate-selector
+    // if(! found) {
+    //     throw `showPair(): no element found for: ${ selectorById }`
+    // }
+    // console.log('found: ', found)
+
+    // document.querySelectorAll( selectorById ).forEach(
+    //     (e) =>   e.parentNode.classList.remove('hide') )
+
+    // found[0].parentNode.classList.remove('hide')
+    // found[0].classList.remove('hide')
+}
+
+function switchByName( name ) {
+    hideAllCharts()
+    const selectorTargetId = `#chartPair${ name }`
+
+    // hardcoded, working version:
+    // document.querySelector('#chartPairCommitCadence').classList.remove('hide')
+    console.log( `switchByName: ${ name } `, selectorTargetId )
+    document.querySelector( selectorTargetId ).classList.remove('hide')
+
+
+    // document.querySelector('#chartPairCommitCadence').classList.remove('hide')
+
+    // document.querySelectorAll('div.chartSelectorPair')[0].classList.remove('hide')
+
+}
+
+// function showPair( nameList ) {
+//     /**
+//      * @description shows pairs (for jekyll page)
+//      */
+
+//     // const selectorById = `#${ name }` // chart-attach-rate-selector
+
+//     // Array.from( nameList ).
+//     //     map( (e) => `#${ e }` ).
+//     //     forEach( (nameAsId) => {
+//     //         Array.from( document.querySelector( nameAsId )).forEach(
+//     //             (e) => e.classList.remove('hide')
+//     //         )
+//     //     }
+//     // )
+
+
+//     // chartPairs.forEach((e) => e.classList.remove('hide') )
+
+//     // const found =
+//     //     document.querySelectorAll(selectorById) // chart-attach-rate-selector
+//     // if(! found) {
+//     //     throw `showPair(): no element found for: ${ selectorById }`
+//     // }
+//     // console.log('found: ', found)
+
+//     // document.querySelectorAll( selectorById ).forEach(
+//     //     (e) =>   e.parentNode.classList.remove('hide') )
+
+//     // found[0].parentNode.classList.remove('hide')
+//     // found[0].classList.remove('hide')
+// }
+function init() {
+    /*
+        globals for script for Metrics page
+    */
+    ym_list = document.getElementsByTagName('year-month-selector')[0]
+    ym = ym_list
+    chartPairs = document.querySelectorAll('div.chartSelectorPair')
+
+    tableToc = document.querySelector('#metricNameTable')
+
+    tableToc.querySelectorAll('a').forEach( (elemLink) => {
+        elemLink.addEventListener('click', (event) => {
+            const eventHref = event.target.getAttribute('href')
+            console.log(event, eventHref)
+            const baseName = eventHref.replace(  /#/, '')
+            switchByName( baseName )
+        })
+    })
+
+    // showPair('chart-attach-rate-selector')
+    // lt = document.querySelector('div.consoleLogBuffer')
+}
+
+window.addEventListener( "load", ( event ) => {
+    console.info("event ▸ on('load')" )
+    init()
+    hideAllCharts()
+
+    // switchByName('BusyMonth')
+    // switchByName('Churn')
+    switchByName('CommitsByLanguage')
+
+    // ym.updateModel({ year: 2023, month: 2 })
+} )
+
+</script>
+
+    <!--
+        for interactive DOM testing:
+
+            ym = document.getElementsByTagName('year-month-selector')[0]
+            ym.getModel()
+    -->
+    <!-- <script type="text/javascript" src="GitLogger-Metrics.js"></script> -->
+
+<!-- <script type="text/javascript">
+let chartPairs = null
+
+// This function creates a new chart by calling the constructor for the Chart object.
+// It creates a new Chart object, and then adds it to the list of charts.
+// The function returns the new Chart object, so that the caller can access its properties and methods.
+function createNewChart() {
+    newChart = new Chart()
+    charts.push( newChart )
+    return newChart
+}
+
+
+function currentPageInit() {
+    pairs = document.querySelectorAll('chartSelectorPair')
+    console.log( pairs.length )
+
+}
+window.addEventListener( "load", ( event ) => {
+    currentPageInit()
+} );
+
+</script> -->
