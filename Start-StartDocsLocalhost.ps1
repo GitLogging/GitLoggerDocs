@@ -20,7 +20,7 @@ if(-not (gcm 'bundle' -ea ignore)) {
 
 
 $Jekyll_BuildCfg = @{
-    LiveReload = $true
+    LiveReload = $false
     AutoOpen   = $True
     DocsRoot = gi 'H:/data/2023/my_git/GitLoggerDocs' # base dir for jekyll source
     # current filepath: H:/data/2023/my_git/GitLoggerDocs/Start-StartDocsLocalhost.ps1
@@ -49,7 +49,7 @@ if(-not (Test-Path $Jekyll_BuildCfg.StaticSiteRoot)) {
     mkdir -Path $Jekyll_BuildCfg.StaticSiteRoot
 }
 
-Pushd -stack 'jekyll'
+# Pushd -stack 'jekyll'
 Push-Location -stack 'jekyll' $Jekyll_BuildCfg.StaticSiteRoot
 
 # others: '--incremental'
