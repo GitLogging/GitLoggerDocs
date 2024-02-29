@@ -145,7 +145,7 @@ export class YearMonthSelector extends HTMLElement {
         */
         if ( params.year ) {
             this.setAttribute( 'year', merged.year )
-        }   
+        }
         if ( params.month ) {
             this.setAttribute( 'month', paddedMonth )
         }
@@ -225,16 +225,55 @@ export class YearMonthSelector extends HTMLElement {
             })
             return
         }
+        if( ! this.verboseLogging ) {
+            console.groupCollapsed ('YearMonthSelector::updateChartFromSelf')
+        } else {
+            console.group('YearMonthSelector::updateChartFromSelf')
+        }
         // event.target.value is new
         //      const newDate = event.target.valueAsDate
-        const newMetric = event?.currentTarget.value
+        const newMetric = event?.currentTarget.value // is '2023-12'
         const newDate = event?.currentTarget.valueAsDate
+
+        console.log('chart[0]', chart )
+
+        const testBefore = [
+            chart.getQueryModel().year,
+            chart.getQueryModel().month,
+            chart.getQueryModel().metric
+        ].join(', ' )
+
+        console.log('newDate[0]', newDate )
+        console.log('chart[0]', chart )
+        console.log('chart.updateModel()')
 
         chart.updateModel( {
             year: newDate.getFullYear(),
             month: newDate.getMonth() + 1,
         } )
 
+        console.log('chart[1]', chart )
+
+
+        const testAfter = [
+            chart.getQueryModel().year,
+            chart.getQueryModel().month,
+            chart.getQueryModel().metric
+        ].join(', ' )
+
+
+        // console.log( ` 🦓 before: ${ chart.getQueryModel() }` )
+        console.log('data', chart.getQueryModel() )
+        console.log( chart.getQueryModel() )
+
+        console.log(
+    `
+        Before: ${ testBefore }
+        After ${ testAfter }`
+    )
+
+
+        console.groupEnd()
         chart.throttledRebuildAll()
         return
     }
@@ -340,6 +379,7 @@ export class YearMonthSelector extends HTMLElement {
         const otherChart = document.querySelector( `#${ targetChart }` )
         inputYearMonthParam.addEventListener( 'change', ( event ) => {
             this.updateChartFromSelf( event )
+
             // // this.#inputElement.value
             // const selectedDate = this.#inputElement.valueAsDate
             // const year = selectedDate?.getFullYear()

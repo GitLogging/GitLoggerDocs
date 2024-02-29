@@ -17,7 +17,7 @@
   {
     "MetricName": "Churn",
     "Synopsis": "Average number of files in a commit",
-    "Description": "Gets the average number of files in a commit by a contributer"
+    "Description": "Gets the average number of files in a commit by a contributor"
   },
   {
     "MetricName": "CommitCadence",

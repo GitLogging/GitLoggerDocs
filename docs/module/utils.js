@@ -3,6 +3,7 @@ export function throttle ( callback, delayMs = 1000 ) {
     /**
      * @description basic throttle function, fire at most X times per delayMs
      * @param {function} callback - the function to throttle
+     * @param {delayMs} [delayMs] - duration of throttle in milliseconds
      * @returns {function} - result of the throttled function
      **/
     let shouldWait = false
@@ -18,8 +19,9 @@ export function throttle ( callback, delayMs = 1000 ) {
 
 export function debounce ( callback, delayMs = 1000 ) {
     /**
-     * @description basic debounce function, fire at the end of delayMs
-     * @param {function} - callback - the function to debounce
+     * @description basic debounce function, fire at the end of delayMs, not a promise
+     * @param {function} callback - the function to debounce
+     * @param {delayMs} [delayMs] - duration in milliseconds of debounce
      * @returns {function} - result of the debounced function
      */
     let timeout
@@ -96,6 +98,7 @@ export function dropBlankProperties ( target, options ) {
     )
 }
 
+
 export function randomInt ( min, max ) {
     /**
      * @description returns a random integer in the set: [min, max)
@@ -126,7 +129,7 @@ export function newArrayRange ( start, stop, step = 1 ) {
      * @description returns an array from the range: [start, stop] with step size, max is inclusive
      * @param {number} start - the minimum value, inclusive
      * @param {number} stop - the maximum value, inclusive
-     * @param {number} step - the step size, default is 1
+     * @param {number} [step] - the step size, default is 1
      * @returns {array} - an array of integers from the range: [start, stop]
      * @example newArrayIntList(4)     // [ 0, 1, 2, 3 ]
      * @example newArrayRange(0, 3)    // [ 0, 1, 2, 3 ]

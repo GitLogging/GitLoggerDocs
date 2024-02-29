@@ -79,10 +79,30 @@
                 min-date="2020-01-01"
                 max-date="2024-01-01"
             ></year-month-selector>
+            <!-- without titles
             <git-logger-chart
                 id="chart-attach-rate"
                 repo="https://github.com/StartAutomating/GitLogger"
+                chart-title="new Chart.Title"
+                chart-subtitle="new Chart.Subtitle"
+                dimension-title = 'First Author'
                 label-text="GitLogger"
+                Year="2023"
+                Month="04"
+                metric="AttachRate"
+                chartType="bar"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+            -->
+            <!-- with titles
+            -->
+            <git-logger-chart
+                id="chart-attach-rate"
+                repo="https://github.com/StartAutomating/GitLogger"
+                dimension-title = 'First Author'
+                label-text="GitLogger"
+
                 Year="2023"
                 Month="04"
                 metric="AttachRate"
@@ -119,12 +139,20 @@
             min-date="2020-01-01"
             max-date="2024-01-01"
         ></year-month-selector> -->
+
+        <!--
+
+            chart-subtitle="Default Subtitle"
+            chart-title="Default Title"
+
+        -->
         <div class='chartPairHorizontal'>
         <git-logger-chart
             id="chart-busy-month"
             repo="https://github.com/StartAutomating/ugit"
             label-text="ugit"
             Year="2023"
+
             metric="BusyMonth"
             chartType="bar"
             class="gitLoggerChartRootElement"
@@ -176,6 +204,7 @@
                     repo="https://github.com/StartAutomating/GitLogger"
                     label-text="GitLogger"
                     Year="2023"
+                    Month="09"
                     metric="Churn"
                     chartType="bar"
                     class="gitLoggerChartRootElement"
@@ -254,6 +283,7 @@
                     repo="https://github.com/StartAutomating/GitLogger"
                     label-text="GitLogger"
                     Year="2023"
+                    Month="12"
                     metric="CommitCadence"
                     chartType="bar"
                     class="gitLoggerChartRootElement"
@@ -311,6 +341,50 @@
                 Year="2023"
                 metric="CommitsByLanguage"
                 chartType="doughnut"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+        </div><!-- end chartPairHorizontal -->
+    </div> <!-- end chartSelectorPair -->
+    <div class='chartSelectorPair' id='chartPairCommitCount'>
+        <div class='chartPairHorizontal'>
+            <git-logger-chart
+                id="chart-commit-count-a"
+                repo="https://github.com/StartAutomating/ugit"
+                label-text="ugit"
+                Year="2023"
+                metric="CommitCount"
+                chartType="bar"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+
+            <div class="flexPair">
+                <year-month-selector
+                    id="chart-commit-count-a-selector"
+                    chart-id="chart-commit-count-b"
+                    label-text="CommitCount for"
+                    min-date="2020-01-01"
+                    max-date="2024-01-01"
+                ></year-month-selector>
+                <git-logger-chart
+                    id="chart-commit-count-b"
+                    repo="https://github.com/StartAutomating/GitLogger"
+                    label-text="GitLogger"
+                    Year="2023"
+                    metric="CommitCount"
+                    chartType="bar"
+                    class="gitLoggerChartRootElement"
+                    >
+                </git-logger-chart>
+            </div>
+            <git-logger-chart
+                id="chart-commit-count-c"
+                repo="https://github.com/StartAutomating/Pipescript"
+                label-text="Pipescript"
+                Year="2023"
+                metric="CommitCount"
+                chartType="bar"
                 class="gitLoggerChartRootElement"
                 >
             </git-logger-chart>
@@ -523,7 +597,7 @@ function switchByName( name ) {
     // hardcoded, working version:
     // document.querySelector('#chartPairCommitCadence').classList.remove('hide')
     console.log( `switchByName: ${ name } `, selectorTargetId )
-    document.querySelector( selectorTargetId ).classList.remove('hide')
+    document.querySelector( selectorTargetId )?.classList.remove('hide')
 
 
     // document.querySelector('#chartPairCommitCadence').classList.remove('hide')
@@ -588,13 +662,14 @@ function init() {
 }
 
 window.addEventListener( "load", ( event ) => {
-    console.info("event ▸ on('load')" )
+    // console.info("event ▸ on('load')" )
     init()
     hideAllCharts()
 
-    // switchByName('BusyMonth')
     // switchByName('Churn')
-    switchByName('CommitsByLanguage')
+    // switchByName('CommitsByLanguage')
+    switchByName('BusyMonth')
+    switchByName('CommitCount')
 
     // ym.updateModel({ year: 2023, month: 2 })
 } )

@@ -7,7 +7,7 @@ export class CachedAPI {
      * minimal wraper that caches API requests
      * @member {boolean} verboseLogging - toggles some extra logging
      */
-    verboseLogging = true;
+    verboseLogging = false;
     static CacheKeyName = "SavedRepositoryURLList";
     static resetCache( options ) {
         for (const item of CachedAPI.getCachedURLSet()) {
@@ -70,26 +70,32 @@ export class CachedAPI {
          * future: make error handling more flexible, or automatic for the invoker
          **/
 
+        console.group(`CachedAPI::🌎Fetch ${url}`)
         const urlList = CachedAPI.getCachedURLSet();
         const isCached = urlList.has(url);
+
         if (isCached) {
             // CachedAPI.getCachedURLList().has(url)
             TelemetryStats.logCacheHitRequest()
             if (this.verboseLogging) { console.log(`CachedAPI::🌎Fetch 🟢 cached:  ${url}`); }
-            return localStorage.getItem(url);
-        }else {
+            console.groupEnd()
+            let jsonText = localStorage.getItem(url)
+            return JSON.parse( jsonText )
+        } else {
             TelemetryStats.logCacheMissRequest()
         }
         if (this.verboseLogging) { console.log(`CachedAPI::🌎Fetch 🟡 not cached: ${url}`); }
         let finalResponse = fetch(url)
             .then((response) => {
-                if (!response.ok) { throw new Error(`HTTP error: ${response.status}`); }
+                if (!response.ok) {
+                    throw new Error(`HTTP error: ${ response.status }`)
+                }
                 return response.json();
             })
+            // .then((json) => json[0] )
             .then((json) => {
                 if (this.verboseLogging) { console.log(`CachedAPI::🌎Fetch 🟢 okay: ${url}`); }
                 CachedAPI.saveRequest(url, json);
-                // maybe without return, just set?
                 return json;
             });
 
@@ -97,32 +103,53 @@ export class CachedAPI {
         // delete url key when that is true
         // if promise was okay, save
         // CachedAPI.saveRequest( url, response )
+        console.groupEnd()
 
         return finalResponse;
     }
     static saveRequest(url, data) {
         /**
-         * @description saves a request to the cache. does not cache results that are empty arrays
+         * @description saves a request to the cache. optionally caches queries that return no records (which could be correct)
          * currently: if the API throws an exception, it should bubble up to the caller
          * or at least the request should skip caching
          */
-        const json = JSON.stringify(data);
+        const options = {
+            alwaysCacheLengthZeroResults: true
+        }
+        const json = JSON.stringify( data[0] );
         if (data.length == 0) {
             console.warn(`🟠 response had length == 0, url:  ${url}`);
             // it might not be an error. maybe test http content length itself is 0
             // caching empty responses could cause issues, but, not caching would also have other issues. don't cache empty responses for now
             // throw new Error( `HTTP error: ${ response.status }` )
+            if (this.verboseLogging) {
+                console.log(`response data was an array with length == 0`)
+            }
+            if( options.alwaysCacheLengthZeroResults ) {
+                if (this.verboseLogging) {
+                    console.log(`options.alwaysCacheLengthZeroResults: enabled`)
+                }
+                localStorage.setItem(url, json);
+                CachedAPI.addCachedURLList(url);
+            }
             return data
         }
-        if (data.length >= 1) {
+
+        if (data.length == 1) {
             localStorage.setItem(url, json);
+
             CachedAPI.addCachedURLList(url);
+            return data
 
             if (this.verboseLogging) {
                 // console.log(`CachedAPI::🌎Fetch 🟠 >= 1? ${data.length >= 1} wrote cache: ${url}`);
             }
         } else {
-            console.warn(`🔴 response was empty ${url}`);
+            const json = JSON.stringify( data.Data )
+            localStorage.setItem( url, json )
+            // throw new Error(`HTTP error: ${ response.status }`)
+            // throw new Error(`🔴 unexpected response size, { url: ${url} }`);
+            console.warn(`🍊 unexpected response size?, { url: ${url} }`);
         }
     }
     static addCachedURLList(url) {
@@ -131,7 +158,7 @@ export class CachedAPI {
          * @param {string} url - url of the api request
          */
         let current = CachedAPI.getCachedURLSet();
-        current.add(url).forEach((a) => a.toString().toLowerCase());
+        current.add(url).forEach((a)  => a.toString().toLowerCase());
         const uniques = distinctList(current) || [current];
         // current = current.map( ( e ) => e.toLowerCase() )
         // current.map(.map(
