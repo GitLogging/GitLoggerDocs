@@ -20,7 +20,7 @@ export class MetricNameSelector extends HTMLElement {
     #metricNames = distinctList(
         gitLoggerMetricNames
     )
-    verboseLogging = true
+    verboseLogging = false
     constructor() {
         super();
         const shadow = this.attachShadow( { mode: 'open' } );

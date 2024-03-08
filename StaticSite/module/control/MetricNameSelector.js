@@ -1,6 +1,6 @@
 import { distinctList } from "../utils.js"
 import { gitLoggerMetrics, gitLoggerMetricNames } from '../config/constants.js'
-export class RepoNameSelector extends HTMLElement {
+export class MetricNameSelector extends HTMLElement {
     /*
       Element supports the following properties:
 
@@ -17,16 +17,10 @@ export class RepoNameSelector extends HTMLElement {
     #selectElement
     #shadow // the shadowRoot node
     #attachedDom // attached to a [GitLoggerChartElement] element, else null
-    //cached names
-    repoNames = distinctList([
-        'GitLogger',
-        'PipeScript',
-        'ugit',
-        'ExcelAnt',
-        'Posh',
-        'dotfiles_git',
-    ])
-    verboseLogging = true
+    #metricNames = distinctList(
+        gitLoggerMetricNames
+    )
+    verboseLogging = false
     constructor() {
         super();
         const shadow = this.attachShadow( { mode: 'open' } );
@@ -39,20 +33,20 @@ export class RepoNameSelector extends HTMLElement {
         ];
     }
     connectedCallback () {
-        // console.debug( '[RepoNameSelector]::connected' );
+        // console.debug( '[MetricNameSelector]::connected' );
     }
 
     disconnectedCallback () {
-        // console.debug( '[RepoNameSelector]::disconnected' );
+        // console.debug( '[MetricNameSelector]::disconnected' );
     }
 
     adoptedCallback () {
-        // console.debug( '[RepoNameSelector]::adopted' );
+        // console.debug( '[MetricNameSelector]::adopted' );
     }
 
     attributeChangedCallback ( name, oldValue, newValue ) {
         if ( this.verboseLogging ) {
-            console.debug( `[RepoNameSelector]::setAttribute : ${ name } = ${ newValue } was ${ oldValue }` );
+            console.debug( `[MetricNameSelector]::setAttribute : ${ name } = ${ newValue } was ${ oldValue }` );
         }
         if ( name == 'metric' ) {
             this.#selectElement.value = newValue
@@ -64,7 +58,7 @@ export class RepoNameSelector extends HTMLElement {
         and update to name to the existing chart's value
         */
         this.#attachedDom = targetChart
-        const existingValue = targetChart.getQueryModel().repoShort ?? 'GitLogger'
+        const existingValue = targetChart.getQueryModel().metric ?? 'CommitCount'
         this.#selectElement.value = existingValue
     }
     rebuildAll () {
@@ -73,7 +67,7 @@ export class RepoNameSelector extends HTMLElement {
         */
         const shadow = this.#shadow
         const rootElement = document.createElement( 'div' );
-        rootElement.setAttribute( 'class', 'RepoNameSelectorRoot' );
+        rootElement.setAttribute( 'class', 'metricNameSelectorRoot' );
         this.#rootElement = rootElement
 
         const text = this.getAttribute( 'label-text' );
@@ -82,40 +76,40 @@ export class RepoNameSelector extends HTMLElement {
 
         const style = document.createElement( 'style' );
         style.textContent = `
-        .RepoNameSelectorRoot.enableDebug {
+        .metricNameSelectorRoot.enableDebug {
             border: 2px solid #a2a2a250;
         }
         `
-        const selectedRepo = document.createElement( 'select' )
-        selectedRepo.setAttribute( 'name', 'selectedRepo' )
-        selectedRepo.setAttribute( 'id', 'MetricName' )
-        rootElement.appendChild( selectedRepo )
-        this.repoNames.forEach( ( item ) => {
+        const selectedMetric = document.createElement( 'select' )
+        selectedMetric.setAttribute( 'name', 'SelectedMetric' )
+        selectedMetric.setAttribute( 'id', 'MetricName' )
+        rootElement.appendChild( selectedMetric )
+        this.#metricNames.forEach( ( item ) => {
             const option = document.createElement( 'option' )
             option.setAttribute( 'value', item )
             option.textContent = item
-            selectedRepo.appendChild( option )
+            selectedMetric.appendChild( option )
         } )
-        this.#selectElement = selectedRepo
+        this.#selectElement = selectedMetric
 
         shadow.appendChild( style )
         shadow.appendChild( info );
-        shadow.appendChild( rootElem6ent );
+        shadow.appendChild( rootElement );
 
         const targetChart = this.getAttribute( 'chart-id' ) // #first-chart
         const otherChart = document.querySelector( `#${ targetChart }` )
         this.attachTo( otherChart )
-        selectedRepo.addEventListener( 'change', ( event ) => {
+        selectedMetric.addEventListener( 'change', ( event ) => {
             console.log( event )
             if ( !this.#attachedDom ) {
                 console.log( `Control is not attached to a chart! Source: ${ event }` )
             }
             const otherChart = this.#attachedDom
-            // const newMetric = event.target.value // or this.#selectElement.value
-            // otherChart.setAttribute( 'metric', newMetric )
-            // otherChart.rebuildAll()
+            const newMetric = event.target.value // or this.#selectElement.value
+            otherChart.setAttribute( 'metric', newMetric )
+            otherChart.rebuildAll()
         } )
 
     }
 }
-customElements.define( 'repo-name-selector', RepoNameSelector );
+customElements.define( 'metric-name-selector', MetricNameSelector );
