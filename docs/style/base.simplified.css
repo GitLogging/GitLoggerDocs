@@ -1,0 +1,163 @@
+/* new file, from scratch, merging some of the previous style */
+/* created: 2023-06-28 */
+:root {
+    --primary-bg: #d4d6df;
+    --primary-bg-0: #abc0cc;
+    --primary-bg-4: #6c7fcc;
+    --primary-bg-1: #161821;
+    --primary-bg-2: #3b3f50;
+    --primary-bg-3: #646774;
+    --primary-bg: var(--primary-bg-3);
+
+    --primary-fg: #abc0cc;
+
+    /* --content-bg: rgb(238, 189, 171); */
+    --content-bg-darker: rgb(255, 102, 0);
+    --content-bg-darker: var(--brightBlue);
+    --darker: var(--brightBlue);
+
+    --border-primary-fg: #7f7f7fff;
+    --border-primary-fg-dim-1: #7f7f7fd5;
+    --border-primary-fg-dim-2: #7f7f7f65;
+    --border-primary-fg-dim-3: #7f7f7f21;
+}
+
+gitlogger-chart {
+    /* border: 2px solid var(--darker); */
+    border: 2px solid #7f7f7f;
+}
+
+body,
+html {
+    /* background-color: var(--primary-bg); */
+    color: var(--primary-fg);
+    font-family: 'ComFortaa', 'cascadia code', Impact, "Arial Narrow Bold", sans-serif;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    /* font-size: 12px !important; */
+    /* font-size: 18px; */
+    font-family: Comfortaa, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: 3rem 1.5rem;
+    margin: 0px 0px;
+    padding: 3px 0px;
+    padding: 0;
+    padding: 3rem 1.5rem;
+}
+
+html {
+    margin: 3rem 1.5rem;
+    margin: 0px 0px;
+    padding: 3px 0px;
+    padding: 3rem 1.5rem;
+    border: 2px solid var(--border-primary-fg-dim-);
+    background-color: var(--primary-bg);
+}
+
+#documentRoot,
+.contentRoot body,
+html {}
+
+h1,
+h2,
+h3 {
+    font-size: 1.8rem;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 1.4rem;
+}
+
+
+#documentRoot {
+    background-color: var(--content-bg);
+    padding: 30px 2rem;
+    margin: 2rem auto;
+    margin: 0.6rem 0.3rem;
+    margin: 0 auto;
+    margin: 0 0;
+    padding: 0 0;
+    padding: 15px 20px;
+    max-width: 90%;
+    border: 3px solid var(--content-bg-darker);
+
+}
+
+/* future: clamp max width based rem etc */
+/* future: clamp min-font-size based  etc */
+.contentRoot {
+    margin: 40px auto;
+    padding: 30px 2rem;
+    max-width: 80%;
+    border: 3px solid var(--content-bg-darker);
+    border-top: 0;
+    border-bottom: 0;
+    border-color: rgb(223, 35, 223, 30%);
+
+}
+
+
+#consolePanel {
+    font-size: 12px;
+}
+
+#consolePanel div {}
+
+
+#consolePanel div::before {
+    /* background-image: url('./cli-icon.svg') */
+    /* content: url('./cli-icon.svg'); */
+    color: white;
+
+    background-color: rgb(68, 137, 202);
+    background-color: #161821;
+    background-color: #344694;
+
+    height: 30px;
+    vertical-align: middle;
+    opacity: 15%;
+    opacity: 40%;
+    /* display: flex; */
+    display: inline-block;
+}
+
+.canvas2 {
+    border: 2px solid #7f7f7f;
+    margin: 20px auto;
+    /*
+    margin: 20px auto;
+
+    padding: 20px auto;
+    width: 200px;
+    margin: 2rem auto; */
+}
+
+.canvas1 {
+    border: 2px solid #3796e4;
+    /* min-width: 50%; */
+    margin: 20px auto;
+    min-width: 400px;
+}
+
+/* #staticCanvas::before {
+    content: 'hi';
+    display: flexbox;
+} */
+
+
+body,
+#documentRoot,
+.contentRoot {
+    border: 2px solid var(--border-primary-fg-dim-3);
+}
+
+#documentRoot {
+    border: 2px solid var(--border-primary-fg-dim-2);
+}
+
+.contentRoot {
+    border: 2px solid var(--border-primary-fg-dim-1);
+}

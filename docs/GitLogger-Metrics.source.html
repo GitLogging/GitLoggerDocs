@@ -1,0 +1,290 @@
+---
+layout: default
+---
+<head>
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+    <script type="module" src="../module/main.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet'>
+    <!-- <link rel="stylesheet" type="text/css" href="Flexbits.css" /> -->
+    <!-- <link rel="stylesheet" type="text/css" href="../style/Flexbits.css" /> -->
+    <!-- <link rel="stylesheet" type="text/css" href="../style/Flexbits.css" /> -->
+    <!-- <link rel="stylesheet" type="text/css" href="../style/iceberg-dark.css" />
+    <link href="../style/gitlogger-chart.css" rel="stylesheet"> -->
+</head>
+<style>
+    th, td {
+        padding: .25em
+    }
+    .hide {
+        display: none;
+    }
+</style>
+
+
+
+<!-- <script type="module" src="../module/main.js"></script>
+<link href="../style/gitlogger-chart.css" rel="stylesheet"> -->
+
+At GitLogger, we believe Knowledge is Power, and Standards are Good.
+<br/>
+
+To that end, we have standardized how we derive metrics from git logs.
+<br/>
+
+You can easily graph or query any named metric, and use them to help <a href='/Know-Your-Repos'>know your repos</a>
+<br/>
+
+
+
+
+<!-- <div>
+
+    <git-logger-chart
+        id="chart-one"
+        repo="https://github.com/StartAutomating/GitLogger"
+        label-text="GitLogger"
+        Year="2023"
+        Month="05"
+        metric="CommitCadence"
+        no-ui="false"
+        chartType="bar"
+        class="gitLoggerChartRootElement"
+    >
+    </git-logger-chart>
+</div> -->
+
+    <!-- <h2><a href="https://github.com/StartAutomating">StartAutomating</a></h2> -->
+<div class="flexParent">
+        <!-- <div class='chartAndSelectorRoot2'> -->
+        <div class='chartSelectorPair' id='chartPairCommitCadence'>
+            <year-month-selector
+                id="chart-attach-rate-selector"
+                chart-id="chart-attach-rate"
+                label-text="Attach Rate for"
+                min-date="2020-01-01"
+                max-date="2024-01-01"
+            ></year-month-selector>
+            <git-logger-chart
+                id="chart-attach-rate"
+                repo="https://github.com/StartAutomating/GitLogger"
+                label-text="GitLogger"
+                Year="2023"
+                Month="05"
+                metric="CommitCadence"
+                chartType="bar"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+        </div>
+        <div class='chartSelectorPair' id='chartPairAttachRate'>
+            <year-month-selector
+                id="chart-commit-cadence-selector"
+                chart-id="chart-commit-cadence"
+                label-text="Attach Rate for"
+                min-date="2020-01-01"
+                max-date="2024-01-01"
+            ></year-month-selector>
+            <git-logger-chart
+                id="chart-commit-cadence"
+                repo="https://github.com/StartAutomating/GitLogger"
+                label-text="GitLogger"
+                Year="2023"
+                Month="05"
+                metric="CommitCadence"
+                chartType="bar"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+        </div>
+</div>
+
+
+
+<table id="metricNameTable">
+    <tr>
+        <th>
+            MetricName
+        </th>
+        <th>
+            Synopsis
+        </th>
+        <th>
+            Description
+        </th>
+    </tr>
+    {% for metric in site.data.GitLoggerMetrics %}
+    <tr>
+        <td>
+            <a href="#{{ metric.MetricName }}">{{ metric.MetricName }}</a>
+        </td>
+        <td>{{ metric.Synopsis }}</td>
+        <td>{{ metric.Description }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script type="text/javascript">
+
+var chartPairs
+var tableToc
+
+function hideAllCharts() {
+    /**
+     * @description hides all examples (for jekyll page)
+     */
+    chartPairs.forEach( (pair) => {
+        pair.classList.add('hide')
+    })
+
+    // ex: document.querySelectorAll('#idPairCommitCadence')[0].classList.add('hide')
+}
+function showPair( name ) {
+    /**
+     * @description shows pairs (for jekyll page)
+     * @param {string} name
+     */
+    const selectorById = `#${ name }` // chart-attach-rate-selector
+    // document.querySelectorAll('#idPairCommitCadence')[0].classList.add('hide')
+    // document.querySelector('#idPairCommitCadence').classList.remove('hide')
+    // document.querySelector('#idPairCommitCadence').classList.add('hide')
+
+    // document.querySelectorAll('#chart-attach-rate-selector')[0].parentNode.classList.remove('hide')
+    // document.querySelectorAll( name  )[0].parentNode.classList.remove('hide')
+    // return
+
+    // chartPairs.forEach((e) => e.classList.remove('hide') )
+
+    // const found =
+    //     document.querySelectorAll(selectorById) // chart-attach-rate-selector
+    // if(! found) {
+    //     throw `showPair(): no element found for: ${ selectorById }`
+    // }
+    // console.log('found: ', found)
+
+    // document.querySelectorAll( selectorById ).forEach(
+    //     (e) =>   e.parentNode.classList.remove('hide') )
+
+    // found[0].parentNode.classList.remove('hide')
+    // found[0].classList.remove('hide')
+}
+
+function switchByName( name ) {
+    hideAllCharts()
+    const selectorTargetId = `#idPair${ name }`
+
+    // hardcoded, working version:
+    // document.querySelector('#chartPairCommitCadence').classList.remove('hide')
+
+
+    console.log( `switchByName: ${ name } `, selectorTargetId )
+
+    console.warn('problem is here, null ref')
+    1 / 0
+    document.querySelector( selectorTargetId ).classList.remove('hide')
+
+
+    // document.querySelector('#chartPairCommitCadence').classList.remove('hide')
+
+    // document.querySelectorAll('div.chartSelectorPair')[0].classList.remove('hide')
+
+}
+
+// function showPair( nameList ) {
+//     /**
+//      * @description shows pairs (for jekyll page)
+//      */
+
+//     // const selectorById = `#${ name }` // chart-attach-rate-selector
+
+//     // Array.from( nameList ).
+//     //     map( (e) => `#${ e }` ).
+//     //     forEach( (nameAsId) => {
+//     //         Array.from( document.querySelector( nameAsId )).forEach(
+//     //             (e) => e.classList.remove('hide')
+//     //         )
+//     //     }
+//     // )
+
+
+//     // chartPairs.forEach((e) => e.classList.remove('hide') )
+
+//     // const found =
+//     //     document.querySelectorAll(selectorById) // chart-attach-rate-selector
+//     // if(! found) {
+//     //     throw `showPair(): no element found for: ${ selectorById }`
+//     // }
+//     // console.log('found: ', found)
+
+//     // document.querySelectorAll( selectorById ).forEach(
+//     //     (e) =>   e.parentNode.classList.remove('hide') )
+
+//     // found[0].parentNode.classList.remove('hide')
+//     // found[0].classList.remove('hide')
+// }
+function init() {
+    /*
+        globals for script for Metrics page
+    */
+    ym_list = document.getElementsByTagName('year-month-selector')[0]
+    ym = ym_list
+    chartPairs = document.querySelectorAll('div.chartSelectorPair')
+
+    tableToc = document.querySelector('#metricNameTable')
+
+    tableToc.querySelectorAll('a').forEach( (elemLink) => {
+        elemLink.addEventListener('click', (event) => {
+            const eventHref = event.target.getAttribute('href')
+            console.log(event, eventHref)
+            const baseName = eventHref.replace(  /#/, '')
+            switchByName( baseName )
+        })
+    })
+
+    // showPair('chart-attach-rate-selector')
+    // lt = document.querySelector('div.consoleLogBuffer')
+}
+
+window.addEventListener( "load", ( event ) => {
+    console.info("event ▸ on('load')" )
+    init()
+    hideAllCharts()
+    // ym.updateModel({ year: 2023, month: 2 })
+} )
+
+</script>
+
+    <!--
+        for interactive DOM testing:
+
+            ym = document.getElementsByTagName('year-month-selector')[0]
+            ym.getModel()
+    -->
+    <!-- <script type="text/javascript" src="GitLogger-Metrics.js"></script> -->
+
+<!-- <script type="text/javascript">
+let chartPairs = null
+
+// This function creates a new chart by calling the constructor for the Chart object.
+// It creates a new Chart object, and then adds it to the list of charts.
+// The function returns the new Chart object, so that the caller can access its properties and methods.
+function createNewChart() {
+    newChart = new Chart()
+    charts.push( newChart )
+    return newChart
+}
+
+
+function currentPageInit() {
+    pairs = document.querySelectorAll('chartSelectorPair')
+    console.log( pairs.length )
+
+}
+window.addEventListener( "load", ( event ) => {
+    currentPageInit()
+} );
+
+</script> -->
