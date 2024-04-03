@@ -20,7 +20,7 @@ if(-not (gcm 'bundle' -ea ignore)) {
 
 
 $Jekyll_BuildCfg = @{
-    LiveReload = $false
+    LiveReload = $true
     AutoOpen   = $True
     DocsRoot = gi 'H:/data/2023/my_git/GitLoggerDocs' # base dir for jekyll source
     # current filepath: H:/data/2023/my_git/GitLoggerDocs/Start-StartDocsLocalhost.ps1

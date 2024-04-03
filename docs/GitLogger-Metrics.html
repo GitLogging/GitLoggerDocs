@@ -74,7 +74,115 @@
 
     <!-- <h2><a href="https://github.com/StartAutomating">StartAutomating</a></h2> -->
 <div class="flexParent">
+    <div class='chartSelectorPair' id='chartPairCommitsByLanguage'>
+        <div class='chartPairHorizontal'>
+            <!-- extra example
+            <git-logger-chart
+                id="chart-commits-by-language-a"
+                repo="https://github.com/StartAutomating/ugit"
+                label-text="ugit"
+                Year="2024"
+                Month="2"
+                metric="CommitsByLanguage"
+                chartType="doughnut"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+            -->
 
+            <div class="flexPair">
+                <!--
+                    extra selector
+                <year-month-selector
+                    id="chart-commits-by-language-a-selector"
+                    chart-id-list="chart-commits-by-language-a,chart-commits-by-language-b,chart-commits-by-language-c"
+                    label-text="CommitsByLanguage for"
+                    min-date="2020-01-01"
+                    max-date="2025-01-01"
+                ></year-month-selector>
+                -->
+                <git-logger-chart
+                    id="chart-commits-by-language-b"
+                    repo="https://github.com/StartAutomating/GitLogger"
+                    label-text="GitLogger"
+                    Year="2024"
+                    Month="02"
+                    metric="CommitsByLanguage"
+                    chartType="doughnut"
+                    class="gitLoggerChartRootElement"
+                    >
+                </git-logger-chart>
+            </div>
+            <git-logger-chart
+                id="chart-commits-by-language-c"
+                repo="https://github.com/StartAutomating/Pipescript"
+                label-text="Pipescript"
+                Year="2024"
+                Month="2"
+                metric="CommitsByLanguage"
+                chartType="doughnut"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+        </div><!-- end chartPairHorizontal -->
+    </div> <!-- end chartSelectorPair -->
+        <div class='chartSelectorPair' id='chartPairAttachRate'>
+            <!-- <year-month-selector
+                id="chart-churn-selector"
+                chart-id="chart-churn"
+                label-text="CommitCadence for"
+                min-date="2020-01-01"
+                max-date="2024-01-01"
+            ></year-month-selector> -->
+        <div class='chartPairHorizontal'>
+            <div class="flexPair">
+
+             <!-- <year-month-selector
+                id="chart-attach-rate-selector"
+                chart-id-list="chart-attach-rate,chart-attach-rate-two"
+                label-text="Attach Rate for"
+                min-date="2020-01-01"
+                max-date="2024-01-01"
+            ></year-month-selector>
+ -->
+
+                <!--
+
+                <year-month-selector
+                    id="chart-commit-cadence-a-selector"
+                    chart-id-list="chart-commit-cadence-a,chart-commit-cadence-b,chart-commit-cadence-c"
+                    label-text="CommitCadence for"
+                    min-date="2020-01-01"
+                    max-date="2024-01-01"
+                ></year-month-selector>
+                -->
+               <!-- <git-logger-chart
+                id="chart-attach-rate"
+                repo="https://github.com/StartAutomating/GitLogger"
+                dimension-title = 'First Author'
+                label-text="GitLogger"
+                Year="2023"
+                Month="04"
+                metric="AttachRate"
+                chartType="bar"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart> -->
+            </div>
+            <git-logger-chart
+                id="chart-attach-rate-two"
+                repo="https://github.com/StartAutomating/GitLogger"
+                dimension-title = 'First Author'
+                chart-title = 'Attach Rate'
+                label-text="GitLogger"
+                Year="2023"
+                metric="AttachRate"
+                chartType="pie"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+
+        </div><!-- end chartPairHorizontal -->
     <div class='chartSelectorPair' id='chartPairBusyDayOfWeek'>
         <year-month-selector
             id="chart-busy-day-of-week-selector"
@@ -222,63 +330,7 @@
         <!-- </div>end chartPairHorizontal -->
     <!-- </div> end chartSelectorPair -->
 
-    <div class='chartSelectorPair' id='chartPairAttachRate'>
-            <!-- <year-month-selector
-                id="chart-churn-selector"
-                chart-id="chart-churn"
-                label-text="CommitCadence for"
-                min-date="2020-01-01"
-                max-date="2024-01-01"
-            ></year-month-selector> -->
-        <div class='chartPairHorizontal'>
-            <div class="flexPair">
 
-             <!-- <year-month-selector
-                id="chart-attach-rate-selector"
-                chart-id-list="chart-attach-rate,chart-attach-rate-two"
-                label-text="Attach Rate for"
-                min-date="2020-01-01"
-                max-date="2024-01-01"
-            ></year-month-selector>
- -->
-
-                <!--
-
-                <year-month-selector
-                    id="chart-commit-cadence-a-selector"
-                    chart-id-list="chart-commit-cadence-a,chart-commit-cadence-b,chart-commit-cadence-c"
-                    label-text="CommitCadence for"
-                    min-date="2020-01-01"
-                    max-date="2024-01-01"
-                ></year-month-selector>
-                -->
-               <!-- <git-logger-chart
-                id="chart-attach-rate"
-                repo="https://github.com/StartAutomating/GitLogger"
-                dimension-title = 'First Author'
-                label-text="GitLogger"
-                Year="2023"
-                Month="04"
-                metric="AttachRate"
-                chartType="bar"
-                class="gitLoggerChartRootElement"
-                >
-            </git-logger-chart> -->
-            </div>
-            <git-logger-chart
-                id="chart-attach-rate-two"
-                repo="https://github.com/StartAutomating/GitLogger"
-                dimension-title = 'First Author'
-                chart-title = 'Attach Rate'
-                label-text="GitLogger"
-                Year="2023"
-                metric="AttachRate"
-                chartType="pie"
-                class="gitLoggerChartRootElement"
-                >
-            </git-logger-chart>
-
-        </div><!-- end chartPairHorizontal -->
     </div> <!-- end chartSelectorPair -->
     <div class='chartSelectorPair' id='chartPairCommitCadence'>
             <!-- <year-month-selector
@@ -332,58 +384,6 @@
                 Month="12"
                 metric="CommitCadence"
                 chartType="bar"
-                class="gitLoggerChartRootElement"
-                >
-            </git-logger-chart>
-        </div><!-- end chartPairHorizontal -->
-    </div> <!-- end chartSelectorPair -->
-    <div class='chartSelectorPair' id='chartPairCommitsByLanguage'>
-        <div class='chartPairHorizontal'>
-            <!-- extra example
-            <git-logger-chart
-                id="chart-commits-by-language-a"
-                repo="https://github.com/StartAutomating/ugit"
-                label-text="ugit"
-                Year="2024"
-                Month="2"
-                metric="CommitsByLanguage"
-                chartType="doughnut"
-                class="gitLoggerChartRootElement"
-                >
-            </git-logger-chart>
-            -->
-
-            <div class="flexPair">
-                <!--
-                    extra selector
-                <year-month-selector
-                    id="chart-commits-by-language-a-selector"
-                    chart-id-list="chart-commits-by-language-a,chart-commits-by-language-b,chart-commits-by-language-c"
-                    label-text="CommitsByLanguage for"
-                    min-date="2020-01-01"
-                    max-date="2025-01-01"
-                ></year-month-selector>
-                -->
-                <git-logger-chart
-                    id="chart-commits-by-language-b"
-                    repo="https://github.com/StartAutomating/GitLogger"
-                    label-text="GitLogger"
-                    Year="2024"
-                    Month="02"
-                    metric="CommitsByLanguage"
-                    chartType="doughnut"
-                    class="gitLoggerChartRootElement"
-                    >
-                </git-logger-chart>
-            </div>
-            <git-logger-chart
-                id="chart-commits-by-language-c"
-                repo="https://github.com/StartAutomating/Pipescript"
-                label-text="Pipescript"
-                Year="2024"
-                Month="2"
-                metric="CommitsByLanguage"
-                chartType="doughnut"
                 class="gitLoggerChartRootElement"
                 >
             </git-logger-chart>
