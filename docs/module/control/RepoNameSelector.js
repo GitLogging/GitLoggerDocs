@@ -59,17 +59,11 @@ export class RepoNameSelector extends HTMLElement {
         // convert `Date` to "2023-04"
         moment( date ).format( 'yyyy-MM' )
     }
-    connectedCallback () {
-        // console.debug( '[RepoNameSelector]::connected' );
-    }
+    connectedCallback () { }
 
-    disconnectedCallback () {
-        // console.debug( '[RepoNameSelector]::disconnected' );
-    }
+    disconnectedCallback () { }
 
-    adoptedCallback () {
-        // console.debug( '[RepoNameSelector]::adopted' );
-    }
+    adoptedCallback () { }
 
     attributeChangedCallback ( name, oldValue, newValue ) {
         if ( oldValue == newValue )  {
@@ -77,7 +71,6 @@ export class RepoNameSelector extends HTMLElement {
                 console.debug( `[RepoNameSelector]::setAttribute : unchanged: ${ name } = ${ newValue } was ${ oldValue }` );
                 return
             }
-
         }
         if ( this.verboseLogging ) {
             console.debug( `[RepoNameSelector]::setAttribute : ${ name } = ${ newValue } was ${ oldValue }` );
@@ -85,6 +78,7 @@ export class RepoNameSelector extends HTMLElement {
         if ( name == "user-name" ) {
             this.updateModel({userName: newValue })
         }
+
     }
 
     updateModel ( options ) {
@@ -316,17 +310,17 @@ export class RepoNameSelector extends HTMLElement {
         this.#attachedDomSelector = listIdsSelector
 
         if( this.verboseLogging ) {
-            console.log( `🎯attach to querySelector: ${ this.#attachedDomSelector }`)
+            console.debug( `RepoNameSelector: 🎯attached to querySelector: ${ this.#attachedDomSelector }`)
         }
         for( const curTarget of document.querySelectorAll( this.#attachedDomSelector )) {
             if( this.verboseLogging ) {
-                console.log( `🎯attach to: ${ curTarget.id }`)
+                console.debug( `RepoNameSelector: 🎯attached to: ${ curTarget.id }`)
             }
             // this populates this.#attachedDomList
             this.attachTo( curTarget )
             selectedRepoElement.addEventListener('change', (event) => {
                 if( this.verboseLogging ) {
-                    console.log(`🎯attach: add change listener: ${ curTarget.id }`)
+                    console.debug(`RepoNameSelector: 🎯attached: add change listener: ${ curTarget.id }`)
                 }
                 this.updateChartFromSelf( event )
             })

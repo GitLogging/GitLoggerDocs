@@ -1,5 +1,5 @@
+import { TelemetryStats } from "./logging/telemetry.js";
 import { distinctList } from "./utils.js";
-import { TelemetryStats } from "./logging/telemetry.js"
 
 export class CachedAPI {
     /**
@@ -15,13 +15,11 @@ export class CachedAPI {
             CachedAPI.deleteCachedURL( item )
         }
         localStorage.removeItem("SavedRepositoryURLList");
-        console.log("clearing cache [SavedRepositoryURLList]");
-
+        // console.log("clearing cache [SavedRepositoryURLList]");
         // optionally remove other app keys
         if( options?.clearAll ) {
             console.log(`deleting all localStorage keys, including non-CacheAPI resources....`)
             localStorage.clear()
-
         }
     }
     static forEachKey(callback) {
@@ -70,7 +68,7 @@ export class CachedAPI {
          * future: make error handling more flexible, or automatic for the invoker
          **/
 
-        console.group(`CachedAPI::🌎Fetch ${url}`)
+        if(this.verboseLogging) { console.group(`CachedAPI::🌎Fetch ${url}`) }
         const urlList = CachedAPI.getCachedURLSet();
         const isCached = urlList.has(url);
 
@@ -103,7 +101,7 @@ export class CachedAPI {
         // delete url key when that is true
         // if promise was okay, save
         // CachedAPI.saveRequest( url, response )
-        console.groupEnd()
+        if(this.verboseLogging) { console.groupEnd() }
 
         return finalResponse;
     }

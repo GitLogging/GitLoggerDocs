@@ -80,6 +80,10 @@ body {
     /* gap: 40px; */
     /* align-items: flex-end; */
     flex-wrap: wrap;
+    /* make child charts align in the middle */
+    align-items: center;
+    justify-content: center;
+
 }
 
 

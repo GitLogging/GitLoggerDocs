@@ -6,23 +6,25 @@ export class YearMonthSelector extends HTMLElement {
      * @description an input that selects 'year_month' date pairs*
 
      * The html Element supports the following attributes
-     * `chart-id` - is the `id` of the `GitLoggerChartElement` instance to attach to
+     * `chart-id-list` - is the `id` of the `GitLoggerChartElement` instances to attach to
      * `month` - date in terms of month
      * `year` - date in terms of year
      * `year-month` - or get/set date pairs, declared  as a string in the format 'yyyy-MM'
      * `min-date` - the oldest date allowed, declared  as a string in the format 'yyyy-MM'
      * `max-date` - the newest date allowed, declared  as a string in the format 'yyyy-MM'
      * @example
-        <metric-name-selector chart-id="first-chart" label-text="MetricName"></metric-name-selector>
+        <metric-name-selector chart-id-list="first-chart" label-text="MetricName"></metric-name-selector>
         <div id="first-chart" no-ui="true" debugInfo="true" debug-css="true" chartType="bar" maxHeight="400px" is="gitlogger-chart" repo="https://github.com/StartAutomating/GitLogger" metric="CommitCount"
             Year="2023" Month="04" class="gitLoggerChartRootElement" max-width="300px">
         </div>
      *
+
      **/
+    #attachedDomSelector // css selectors to attach, ex value: "#chart-one,#chart-two",
     #rootElement // topmost div under shadow,below style tag
     #inputElement // the core selector
     #shadow // the shadowRoot node
-    #attachedDom // attached to a [GitLoggerChartElement] element, else null
+    #attachedDomList = [] // attached to <git-logger-chart> elements  [GitLoggerChartElement[]] elements
     verboseLogging = false
 
     // list of all properties that getModel() and updateModel() can support. unhandled keys are gracefully ignored.
@@ -41,7 +43,7 @@ export class YearMonthSelector extends HTMLElement {
         return this.#supportedModelPropertyNames
     }
     static get observedAttributes () {
-        return [ 'year', 'month', 'year-month', 'min-date', 'max-date' ];
+        return [ 'year', 'month', 'year-month', 'min-date', 'max-date', 'chart-id-list' ];
     }
     static YearMonthStringFromNow () {
         /*
@@ -68,15 +70,16 @@ export class YearMonthSelector extends HTMLElement {
     attributeChangedCallback ( name, oldValue, newValue ) {
         if ( this.verboseLogging ) {
             console.debug( `[YearMonthSelector]::setAttribute : ${ name } = ${ newValue } was ${ oldValue }` );
+            console.info(`PropertyHadNoHandlerRegistered: No-Op for: ${ name } `)
         }
-        /*
-            future: changes call this.updateModel( year: ..., month: ... ) et
-        */
-        if ( name == 'year' ) { }
-        if ( name == 'month' ) { }
-        if ( name == 'year-month' ) { }
-        if ( name == 'min-date' ) { }
-        if ( name == 'min-date' ) { }
+        // /*
+        //     future: changes call this.updateModel( year: ..., month: ... ) et
+        // */
+        // if ( name == 'year' ) { }
+        // if ( name == 'month' ) { }
+        // if ( name == 'year-month' ) { }
+        // if ( name == 'min-date' ) { }
+        // if ( name == 'min-date' ) { }
     }
     updateModel ( params ) {
         /**
@@ -131,6 +134,10 @@ export class YearMonthSelector extends HTMLElement {
             this.setAttribute( 'year-month',  yearMonthPair)
         }
 
+        if ( merged.chartIdList ) {
+            this.setAttribute( 'chart-id-list', merged.chartIdList )
+        }
+
         this.#inputElement.value = yearMonthPair
     }
     attachTo ( targetChart ) {
@@ -141,13 +148,12 @@ export class YearMonthSelector extends HTMLElement {
          * @see updateModel
          * @see attachTo
         **/
-
-        this.#attachedDom = targetChart ?? this.#attachedDom
-
-        // const { year, month } = targetChart.getQueryModel() //.metric ?? 'CommitCount'
-        if ( ! this.#attachedDom ) {
-            console.error( `Control is not attached to a chart` )
+        if ( !targetChart ) {
+            console.error( `Control has no target to attach to: targetChart` )
             return
+        }
+        if ( !this.#attachedDomList.includes( targetChart ) ) {
+            this.#attachedDomList.push( targetChart )
         }
         this.updateSelfFromChart()
     }
@@ -156,8 +162,10 @@ export class YearMonthSelector extends HTMLElement {
          * @description read the chart's state, updating self
          * The format is "yyyy-MM" where yyyy is year in four or more digits, and MM is 01-12.
          **/
-        const chart = this.#attachedDom
-        const state = chart.getQueryModel()
+        const targetChart = this.#attachedDomList[ 0 ]
+        if ( !targetChart ) { return }
+
+        const state = targetChart.getQueryModel()
 
         const newYear =
             state.year ??
@@ -170,6 +178,9 @@ export class YearMonthSelector extends HTMLElement {
             month: newMonth,
             yearMonth: `${ newYear }-${ newMonth }`
         } )
+        // note: set attribute, or should UpdateModel handle that?
+        this.setAttribute( 'year', newYear )
+        this.setAttribute( 'month', newMonth )
         // future: update min/max date ranges on repo change
         // The format is "yyyy-MM" where yyyy is year in four or more digits, and MM is 01-12.
         // this.#inputElement.value = this.getAttribute( 'year-month' )
@@ -178,27 +189,21 @@ export class YearMonthSelector extends HTMLElement {
         /**
          * @description update attached chart's state from self's state
         * alias as this.updateModel()
-         **/
-        const chart = this.#attachedDom
+        **/
         const state = this.getModel()
+        for ( const chart of this.#attachedDomList ) {
+            if ( this.verboseLogging ) {
+                console.log( `repoNameSelector::updateChartFromSelf, event: ${ event }` )
+            }
 
-        if( ! event ) {
-            // no event, so using current state
-            chart.updateModel({
-                year: state.year,
-                month: state.month,
-                // yearMonth: state.yearMonth,
-            })
-            return
+            // note: verify this is event and not state for #125:
+            const newDate = event?.currentTarget.valueAsDate
+            chart.updateModel( {
+                year: newDate.getFullYear(),
+                month: newDate.getMonth() + 1,
+            } )
+            chart.throttledRebuildAll()
         }
-        // const newMetric = event?.currentTarget.value // is '2023-12'
-        const newDate = event?.currentTarget.valueAsDate
-        chart.updateModel( {
-            year: newDate.getFullYear(),
-            month: newDate.getMonth() + 1,
-        } )
-        chart.throttledRebuildAll()
-        return
     }
     getModel ( options ) {
         /**
@@ -220,9 +225,11 @@ export class YearMonthSelector extends HTMLElement {
             curDate = new Date()
         }
         let finalData = {
+            // validate month mapping is correct for #125:
             year: curDate.getFullYear(),
             month: curDate.getMonth() + 1, // API uses months 1=jan, javascript uses jan = 0
             date: curDate,
+            chartIdList: this.getAttribute( 'chart-id-list' )
         }
         const yearMonthStr = [ finalData.year, finalData.month ].join( '-' )
         finalData.yearMonth = yearMonthStr
@@ -266,7 +273,33 @@ export class YearMonthSelector extends HTMLElement {
         shadow.appendChild( rootElement );
         rootElement.appendChild( inputYearMonthParam )
 
-        const targetChart = this.getAttribute( 'chart-id' ) // #first-chart
+        // transform basic user string into a valid CSS Query
+        const idList_selector = // in : 'first-chart,second-chart'
+            // out: '#first-chart,#second-chart'
+            this.getAttribute( 'chart-id-list' )
+                .split( ',' )
+                .map( ( o ) => `#${ o }` )
+                .join( ',' )
+
+        this.#attachedDomSelector = idList_selector;// css selectors to attach, ex value: "#chart-one,#chart-two",
+
+        for ( const curTarget of document.querySelectorAll( this.#attachedDomSelector ) ) {
+            if ( this.verboseLogging ) {
+                console.debug( `YearMonthSelector: 🎯attached to: ${ curTarget.id }` )
+            }
+            // this populates this.#attachedDomList
+            this.attachTo( curTarget )
+            this.#inputElement.addEventListener( 'change', ( event ) => {
+                if ( this.verboseLogging ) {
+                    console.debug( `YearMonthSelector: 🎯attached: add change listener: ${ curTarget.id }` )
+                }
+                this.updateChartFromSelf( event )
+            } )
+        }
+
+        return
+
+        const targetChart = this.getAttribute( 'chart-id-list' ) // #first-chart
         const otherChart = document.querySelector( `#${ targetChart }` )
         inputYearMonthParam.addEventListener( 'change', ( event ) => {
             this.updateChartFromSelf( event )

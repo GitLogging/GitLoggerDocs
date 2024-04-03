@@ -1,7 +1,7 @@
-import { distinctList, dropBlankProperties, renderJsonAsPre, throttle, debounce } from "../utils.js"
-import { gitLoggerMetrics, gitLoggerMetricNames } from '../config/constants.js'
-import { getServerConfig } from '../config/server.js'
 import { CachedAPI } from "../cachedApi.js"
+import { gitLoggerMetricNames } from '../config/constants.js'
+import { getServerConfig } from '../config/server.js'
+import { distinctList, dropBlankProperties } from "../utils.js"
 
 export class GitLoggerChartElement extends HTMLElement {
     /*
@@ -25,9 +25,9 @@ export class GitLoggerChartElement extends HTMLElement {
 
     */
     #requestFailCount = 0
-    #disableCache = false
 
-    /* warning, url.RelativePath differs for local verses live:
+
+    /* note, url.RelativePath differs for local verses live:
 
         http://localhost:9099/api/Get-GitLogger?Repository=https://github.com/StartAutomating/ugit
         https://gitloggerfunction.azurewebsites.net/Get-GitLogger?Repository=https://github.com/StartAutomating/ugit
@@ -97,63 +97,40 @@ export class GitLoggerChartElement extends HTMLElement {
     // constructor(ctx, options) {
     constructor() {
         super()
-        if( this.verboseLogging ) {
-            console.log( "trace.🤖 GitLoggerChart :: ctor [docs/module/gitLoggerChartElement.js]" )
-        }
         const shadow = this.attachShadow( { mode: 'open' } );
         this.#shadow = shadow
         // this.#ctxCanvas = canvas
         // this.#ctx = div
         try {
             this.rebuildAll()
-        } catch {
+        } catch (err) {
             this.#requestFailCount++
-            console.log(`GitLoggerChartElement::rebuildAll() had an error. retrying... fail count: ${ this.#requestFailCount } `)
-            if( this.#requestFailCount <= 1 ) {
-                setTimeout( () => { this.rebuildAll() }, 400)
-            }
-        }
-
-        if ( this.#disableCache ) {
-            console.warn( 'caching is disabled [GitLoggerChartElement]::ctor' )
+            console.error(`auto request disabled: GitLoggerChartElement::rebuildAll() had an error. retrying... fail count: ${ this.#requestFailCount } `, err)
         }
     }
 
-    connectedCallback () {
-        if ( this.verboseLogging ) {
-            console.debug( '[GitLoggerChartElement]::connected' );
-        }
-    }
+    connectedCallback () {}
 
-    disconnectedCallback () {
-        if ( this.verboseLogging ) {
-            console.debug( '[GitLoggerChartElement]::disconnected' );
-        }
-    }
+    disconnectedCallback () {}
 
-    adoptedCallback () {
-        if ( this.verboseLogging ) {
-            console.debug( '[GitLoggerChartElement]::adopted' );
-        }
-    }
+    adoptedCallback () {}
 
     attributeChangedCallback ( name, oldValue, newValue ) {
         if ( this.verboseLogging ) {
             console.debug( `[GitLoggerChartElement]::setAttribute : ${ name } = ${ newValue } was ${ oldValue }` );
         }
         // update properties: 'repo', 'metric', 'month', 'year', 'debugInfo'
-        if ( name == 'dimension-title' ) {
-            // this.#chartTitle = newValue
-            // future: throttled rebuild on changes to title
-        }
+        // if ( name == 'dimension-title' ) {
+        //     if (oldValue !== newValue) {
+        //         this.chartTitle = newValue
+        //         // this.chartTitle = newValue
+        //         // future: throttled rebuild on changes to title
+        //     }   // this.#chartTitle = newValue
+        // }
         if ( name == 'chartType' ) {
             this.#chartType = newValue
         }
     }
-    hasPropertyDefined ( propertyName ) {
-        return this[ propertyName ] !== undefined
-    }
-
     get chartTitle() {
         return this.#chartTitle
     }
@@ -163,7 +140,6 @@ export class GitLoggerChartElement extends HTMLElement {
             this.setAttribute('chart-title', text)
             this.rebuildAll()
         }
-        // this.updateChartConfig(...)
     }
     get chartSubTitle() {
         return this.#chartSubTitle
@@ -187,6 +163,7 @@ export class GitLoggerChartElement extends HTMLElement {
          *
          * @returns css content as a `string`
          */
+        // for #125: refactor to fully use style sheets, no here-strings
         const css_content = `
 :root {
     --primary-bg: #abc0cc;
@@ -281,17 +258,10 @@ h3 {
 
 
     updateChartConfig ( options ) {
-        console.group('Chart::UpdateChartConfig()')
-
         if(this.verboseLogging) {
-            console.log('GitLoggerChartElement::updateChartConfig', options )
+            // 'this would first update the options for the chart, and then call `this.rebuildAll()`',
+            console.warn(`updating Chart() with new state, currently a no-op.`, options)
         }
-
-        console.log(`updating Chart() with new state, currently a no-op.`, options)
-        console.log(
-        'this would first update the options for the chart, and then call `this.rebuildAll()`',
-        `see implementation of the property 'this.#chartSubTitle' for an example` )
-        console.groupEnd()
     }
     getChartConfig () {
         /**
@@ -299,7 +269,7 @@ h3 {
          */
         return {
             initOptions: this.#lastChartOptions,
-            curOptions: this.#lastChartOptions // todo: inspect chart metadata instead
+            curOptions:  this.#lastChartOptions // todo: inspect chart metadata instead
             // otherStates: 123,
         }
     }
@@ -311,7 +281,7 @@ h3 {
 
         const filterOptions = {
             dropEmpty: false,
-            dropNull: false,
+            dropNull:  false,
             dropWhitespace: true,
         }
         const opt = dropBlankProperties( options, filterOptions )
@@ -322,7 +292,8 @@ h3 {
         }
 
         if ( opt.title ) {
-            console.error( 'nyi: mutate title in place: title' )
+
+            // console.error( 'nyi: mutate title in place: title' )
         }
         if ( opt.labelText ) {
             this.setAttribute('label-text', opt.labelText)
@@ -393,16 +364,6 @@ h3 {
             },
             ...options
         }
-
-        // in the future: form selectors will  move controllers outside as another class
-        // let metricParam = this.shadowRoot.querySelector('select#MetricName')
-        // let monthParam = this.shadowRoot.querySelector( 'input#MonthParam' )
-        // let yearFromAttr = this.getAttribute( 'year' )
-        // let monthFromAttr = this.getAttribute( 'month' )
-        // let yearFromInput = null
-        // if ( monthParam ) { // future-style: learn idiomatic-js
-        //     yearFromInput = monthParam.valueAsDate?.getFullYear()
-        // }
         /*
         ex:
             <div debug-css="true" chartType="bar" maxHeight="400px" is="gitlogger-chart" repo="https://github.com/StartAutomating/GitLogger" metric="CommitCount"
@@ -492,19 +453,16 @@ h3 {
             Year      : config.year,
             Month     : config.month
         }
-        const dropBlank = dropBlankProperties( selectedParams )
+        const dropBlank       = dropBlankProperties( selectedParams )
         const newSearchParams = new URLSearchParams( dropBlank )
-        // const pwshEndpont = 'Get-GitLogger'
+
         const renderURL = `${ config.baseURL }/${ config.endpoint }?${ newSearchParams.toString() }`
         if ( this.verboseLogging ) {
             console.log( 'finalUrl', renderURL )
         }
         return renderURL
-        return 'http://127.0.0.1:7077/Get-GitLogger?Repository=https://github.com/StartAutomating/Ugit&Metric=CommitCount&Year=2023&Month=01'
-
-        // return "http://127.0.0.1:7077/Get-GitLogger?Repository=https://github.com/StartAutomating/Ugit&Metric=CommitCount&Year=2023&Month=01"
-
         /*
+        // ex:  'http://127.0.0.1:7077/Get-GitLogger?Repository=https://github.com/StartAutomating/Ugit&Metric=CommitCount&Year=2023&Month=01'
         // Url: "http://127.0.0.1:7077/Get-GitLogger?
             Repository = https://github.com/StartAutomating/Ugit
             Metric = CommitCount
@@ -513,16 +471,7 @@ h3 {
         */
     }
     throttledRebuildAll () {
-        console.warn('throttle here')
-        console.groupCollapsed('throttledRebuildAll()')
-        console.log( this.#lastRebuildAllInfo)
-        this.#lastRebuildAllInfo.lastThrottledRebuildAllTime = new Date()
-        console.log( this.#lastRebuildAllInfo)
-        console.groupEnd()
-
-        this.rebuildAll()
-        return
-
+        this.rebuildAll() // todo: refactor as interruptable async promise for #124
     }
     rebuildAll () {
         /**
@@ -535,19 +484,20 @@ h3 {
         * todo: future: debounce/throttle this render call
         * besides caching request, the`Chart()` itself can be reused without destroying elements
         */
-        console.groupCollapsed('rebuildAll()')
-        console.log( this.#lastRebuildAllInfo)
-        this.#lastRebuildAllInfo.lastRebuildAllTime = new Date()
-        console.log( this.#lastRebuildAllInfo)
-        console.groupEnd()
 
+       if(this.verboseLogging) {
+            console.groupCollapsed('rebuildAll()')
+            console.log( this.#lastRebuildAllInfo)
+            this.#lastRebuildAllInfo.lastRebuildAllTime = new Date()
+            console.log( this.#lastRebuildAllInfo)
+            console.groupEnd()
+       }
 
         const shadow = this.#shadow
+        // clean up Jekyll links for: #125
         let pathJekyllPrefix = '../style/' ?? '' // to work around Jekyll's relative paths
         pathJekyllPrefix = ''
         pathJekyllPrefix = '../style/'
-
-        // pathJekyllPrefix = 'style/'
         shadow.replaceChildren();
         if ( this.verboseLogging ) {
             console.log( "[GitLoggerChartElement]::rebuildAll [docs/module/gitLoggerChartElement.js]" )
@@ -562,11 +512,6 @@ h3 {
         style0.setAttribute( 'rel', 'stylesheet' );
         shadow.appendChild( style0 )
 
-        // this  kind of contextextual boiler-plate is when copilot is useful
-        // add stylesheets to shadowdom for
-        // <link rel="stylesheet" type="text/css" href="style/Flexbits.css" />
-        // <link rel="stylesheet" type="text/css" href="style/iceberg-dark.css" />
-        // <link href="style/base.css" rel="stylesheet"></link>
         const style1 = document.createElement( 'link' )
         style1.setAttribute( 'href', `${ pathJekyllPrefix }Flexbits.css` )
         style1.setAttribute( 'href', `style/Flexbits2.css` )
@@ -583,11 +528,10 @@ h3 {
         const style4 = document.createElement( 'link' )
         style4.setAttribute( 'href', `${ pathJekyllPrefix }gitLoggerChart.css` )
         style4.setAttribute( 'rel', 'stylesheet' )
-        // shadow.appendChild(style3)
 
         const divRoot = document.createElement( 'div' ); // effective base. is also '#ctx'
-        divRoot.setAttribute( 'id', 'gitloggerChartRoot' ); // doesn't need to be class because it's a shadow dom
-        divRoot.setAttribute( 'class', 'commonChartRoot' ); // doesn't need to be class because it's a shadow dom
+        divRoot.setAttribute( 'id', 'gitloggerChartRoot' );
+        divRoot.setAttribute( 'class', 'commonChartRoot' );
         shadow.appendChild( divRoot );
 
         // div.style = `position: relative; height:80vh; width:80vw`
@@ -645,19 +589,13 @@ h3 {
         const showDebugInfoBox = this.hasAttribute( 'debugInfo' ) // to remove
         this.#chartType = this.getAttribute( 'chartType' )
         this.#chartTitle = this.getAttribute( 'dimension-title' )
+        // this.chartTitle = this.getAttribute( 'dimension-title' )
         this.#metric = this.getAttribute( 'metric' )
 
         const messageBox = document.createElement( 'div' )
         messageBox.setAttribute( 'id', 'debugInfoBox' )
         messageBox.setAttribute( 'class', 'hidden' )
-
-        // shadow.appendChild(messageBox)
         shadow.insertBefore( messageBox, this.#ctx )
-        // context.appendChild(messageBox)
-        // shadow.appendChild(messageBox)
-
-        // copilot works great for this, like:
-        //   <input list="SavedRepositoryURLList" type="url" id="RepositoryURLChoice" name="RepositoryURLChoice"
 
         const linkAddRepo = document.createElement( 'a' )
         linkAddRepo.setAttribute( 'href', 'javascript:void(0)' )
@@ -679,39 +617,31 @@ h3 {
         shadow.addEventListener( 'click', ( event ) => {
             // click removes the most recent url from the cache, leaving the remaining items
             console.log(`debug: clear cached url: ${ this.#lastRequestURL } `)
-            let configNeverCallback = false
-            CachedAPI.deleteCachedURL( this.#lastRequestURL )
+            // let configNeverCallback = false
             // reload after a delay
-            CachedAPI.requestURL( this.#lastRequestURL )
-            // todo: future: move this logic to this.throttledRebuildAll()
-                // Or, it could be caused by the live-reload. test whether it heppens on production
+
+            // todo: refactor for #125:
+            // future: move this logic to this.throttledRebuildAll()
+            // Or, it could be caused by the live-reload. test whether it heppens on production
             // note: the problem here is because if you click 3 times, the event handler
             // is being registered 3 times, because it flashes 1 extra time per click
             // so, unregister the callback before .rebuildAll DOM is cleaned up
-            if( configNeverCallback )  { return }
+
+            // callback will  be a promise once the improved CachedRequestAsync class is merged
             if( this.#requestFailCount <= 0 ) {
+                // refactor as interruptable async promise for #124
                 setTimeout( () => {
-                    this.rebuildAll()
                     console.log('rebuildAll::click => rebuildAll')
+                    this.rebuildAll()
                     this.#requestFailCount = 0
                 }, 150)
             }
         } )
         const newRequestURL = this.buildRequestURL()
-        if( this.#lastRequestURL == newRequestURL ) {
-            console.warn( `request url hasn't changed, state may have.` )
-        }
         this.#lastRequestURL = newRequestURL
         this.#lastRebuildAllInfo.lastRequestUrl = this.#lastRequestURL
         this.#requestUrlHistory.push( this.#lastRequestURL )
 
-        if ( this.verboseLogging ) {
-            console.log( `🧪 GitLoggerChartElement::disabledCache == ${ this.#disableCache }` )
-        }
-        if(this.#disableCache) {
-            CachedAPI.deleteCachedURL( newRequestURL )
-            console.log( '#cache is disabled')
-        }
         const cachedResponsePromise = new Promise((resolve, reject) => {
             const cachedResponse = CachedAPI.requestURL(newRequestURL);
             if (cachedResponse) {
@@ -740,19 +670,6 @@ h3 {
 
         const curRepoURL = this.getQueryModel().repoURL
         // next query build
-
-        // const repoDimensionsPromise = new Promise((resolve, reject) => {
-        //     const nextUrl = `http://localhost:9099/api/Get-GitLogger?Repository=${ curRepoURL
-        //         }&Metric=RepoSummary`
-        //     const cachedResponse = CachedAPI.requestURL(nextUrl);
-        //     if (cachedResponse) {
-        //         resolve(cachedResponse);
-        //     } else {
-        //         reject('Failed to get cached response');
-        //     }
-        // });
-
-
         // repoDimensionsPromise.then(response => {
         //     // console.log('RepoSummary', response)
         //     return response.Data[0]
@@ -780,29 +697,14 @@ h3 {
          * Which comes from either the cache, else a fetch()
          *
          * @param response - json from the GitLoggerAPI endpoint
-         *
-         *
-        **/
-
-        /**
-         * Regenerates chart elements under the `#shadow` dom
-         *
-         * @remarks
-         * builds the dom and event handlers, required for the ChartJS graph and controls
-         * It also invokes `flattenData`
-        *
-        * todo: future: debounce/throttle this render call
-        * besides caching request, the`Chart()` itself can be reused without destroying elements
         */
-        // let curChartTitle = this.getAttribute('chart-title', 'def')
-        // let curChartTitle = this.getAttribute('chart-title') ?? ''
-        // // let curChartSubTitle = this.getAttribute('chart-subtitle', 'def')
-        // let curChartSubTitle = this.getAttribute('chart-subtitle') ?? ''
-        // this.#chartLabel = this.getAttribute('chart-label') ?? ''
         let curChartTitle = this.getAttribute('chart-title')
-        // let curChartSubTitle = this.getAttribute('chart-subtitle', 'def')
         let curChartSubTitle = this.getAttribute('chart-subtitle')
         this.#chartLabel = this.getAttribute('chart-label')
+
+        if ( !response ) {
+            throw new Error( `InvalidState: Response: ${ response } ` )
+        }
 
         let data = response.Data ?? response[0].Data
 
@@ -814,10 +716,6 @@ h3 {
         if( this.verboseLogging ) {
             console.log( this.#lastRebuildAllInfo)
             console.groupEnd()
-        }
-
-        if( ! response ) {
-            throw new Error(`InvalidState: Response: ${ response } `)
         }
         if( ! data ) {
             throw new Error(`InvalidState: falsy response.Data = ${ response.Data } `)
@@ -841,14 +739,12 @@ h3 {
         // guess at keys based on the JSON shape
         let maybeKeysList =
              Object.keys( data[0] ?? [] )
-            //  Object.keys( data[0] )
         let defaultAxisLabel =
             maybeKeysList[0] ?? 'Axis'
 
         if(resultIsEmptyArray) {
             defaultAxisLabel = 'No Records Found'
             // this.#chartTitle = 'empty'
-            // this.#chartTitle = 'No Records Found'
             // this.chartTitle = 'No Records (title)'
             // this.chartSubTitle = 'No Records (subtitle)'
         }
@@ -858,8 +754,6 @@ h3 {
                 maybeKeysList.join(', ')
             }`
         )
-
-        // let customLabel = this.#chartTitle ?? defaultAxisLabel
         let customLabel = this.#chartLabel ?? defaultAxisLabel
         let optionsConfig = {
             type: chartType,
@@ -874,6 +768,8 @@ h3 {
                 ],
             },
             options: {
+                responsive: true,
+                resizeDelay: 100,
                 scales: {
                     y: {
                         display: ! resultIsEmptyArray,
@@ -894,17 +790,6 @@ h3 {
                 },
             },
         }
-        // if( ! this.#chartTitle) {
-        //     // force on for test
-        //     this.#chartTitle = 'Chart.Title.'
-
-        // }
-        // if( ! this.#chartSubTitle) {
-        //     // force on for test
-        //     this.#chartSubTitle = 'Chart.Subtitle'
-
-        // }
-
         if( ! this.#chartTitle ) {
             optionsConfig.options.plugins.title.display = false
         }
@@ -938,15 +823,9 @@ h3 {
             }
         }
         if ( this.#chart ) {
-            if( this.verboseLogging ) {
-                console.log('#chart.destroy()')
-            }
             this.#chart?.destroy()
             this.#chart = null
-        } else {
-            console.warn( '::showChartJS => this.#chart was blank')
         }
-
         if( this.verboseLogging ) {
             console.log('new Chart() with options', options)
         }
@@ -999,8 +878,44 @@ h3 {
             console.error( err )
         }
     }
+    get ChartInstance() {
+        return this.#chart
+    }
+    get ChartDataMeta () {
+        return this.#chart.getDatasetMeta()
+    }
+    get ChartVisibleDataMeta () {
+        return this.#chart.getSortedVisibleDatasetMetas()
+    }
+    getChart_DataMetaAtIndex ( index ) {
+        return this.#chart.getDatasetMeta( index )
+    }
+    get ChartVisibleDatasetCount() {
+        return this.#chart.getVisibleDatasetCount()
+    }
 
-
+    chartAnimate_Hide ( index ) {
+        /**
+         * @description call the hide animation on datasetIndex, defaults to all datasets
+         * @param index - optional index of the dataset to hide, else hides all
+         */
+        // const num = index ?? (this.ChartInstance?.getVisibleDatasetCount() ?? 0)
+        const num = index ?? 4
+        for(let i = 0; i < num; i++) {
+            try { this.ChartInstance.hide(i) } catch { } // # expected animation errors when out of range
+        }
+    }
+    chartAnimate_Show ( index ) {
+        /**
+         * @description call the Show animation on datasetIndex, defaults to all datasets
+         * @param index - optional index of the dataset to Show, else Shows all
+         */
+        // const num = index ?? (this.ChartInstance?.getVisibleDatasetCount() ?? 0)
+        const num = index ?? 4
+        for(let i = 0; i < num; i++) {
+            try { this.ChartInstance.show(i) } catch { } // # expected animation errors when
+        }
+    }
 }
 
 // customElements.define( 'git-logger-chart', GitLoggerChartElement, { extends: "div" } );
