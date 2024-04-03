@@ -1,0 +1,654 @@
+<head>
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+    <script type="module" src="module/main.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet'>
+    <link href="style/gitlogger-chart.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style/iceberg-dark.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="Flexibits.css" /> -->
+    <!-- <link rel="stylesheet" type="text/css" href="style/Flexbits.css" /> -->
+    <!-- <link rel="stylesheet" type="text/css" href="./style/Flexbits1.css" /> -->
+    <!-- <link rel="stylesheet" type="text/css" href="./style/Flexbits2.css" /> -->
+    <link rel="stylesheet" type="text/css" href="./style/base.simplified.css" />
+</head>
+<style>
+    th, td {
+        padding: .25em
+    }
+    .hide {
+        display: none;
+    }
+
+    div.chartPairHorizontal {
+        display: flex;
+        flex-direction: row;
+    }
+    div.topBannerText {
+        text-align: center;
+        margin: 20px 5%;
+    }
+    div.topBannerText p {
+        font-size: 1.8rem;
+    }
+    table#metricNameTable {
+        margin: auto;
+    }
+</style>
+
+
+
+<!-- <script type="module" src="../module/main.js"></script>
+<link href="../style/gitlogger-chart.css" rel="stylesheet"> -->
+<div class="topBannerText">
+
+
+<p>
+        At GitLogger, we believe Knowledge is Power, and Standards are Good.
+        <br/>
+        To that end, we have standardized how we derive metrics from git logs.
+        <br/>
+        You can easily graph or query any named metric, and use them to help
+        <a href='/Know-Your-Repos'>know your repos</a>
+    </p>
+
+
+
+
+</div>
+
+
+<!-- <div>
+
+    <git-logger-chart
+        id="chart-one"
+        repo="https://github.com/StartAutomating/GitLogger"
+        label-text="GitLogger"
+        Year="2023"
+        Month="05"
+        metric="CommitCadence"
+        no-ui="false"
+        chartType="bar"
+        class="gitLoggerChartRootElement"
+    >
+    </git-logger-chart>
+</div> -->
+
+    <!-- <h2><a href="https://github.com/StartAutomating">StartAutomating</a></h2> -->
+<div class="flexParent">
+
+    <div class='chartSelectorPair' id='chartPairBusyDayOfWeek'>
+        <year-month-selector
+            id="chart-busy-day-of-week-selector"
+            chart-id-list="chart-busy-day-of-week"
+            label-text="BusyDayOfWeek for"
+            min-date="2020-01-01"
+            max-date="2024-01-01"
+        ></year-month-selector>
+        <git-logger-chart
+            id="chart-busy-day-of-week"
+            repo="https://github.com/StartAutomating/GitLogger"
+            label-text="GitLogger"
+            Year="2023"
+            Month="04"
+            metric="BusyDayOfWeek"
+            chartType="bar"
+            class="gitLoggerChartRootElement"
+            >
+        </git-logger-chart>
+    </div>
+    <div class='chartSelectorPair' id='chartPairBusyMonth'>
+        <!-- <year-month-selector
+            id="chart-busy-month-selector"
+            chart-id-list="chart-busy-month"
+            label-text="BusyMonth for"
+            min-date="2020-01-01"
+            max-date="2024-01-01"
+        ></year-month-selector> -->
+
+        <!--
+
+            chart-subtitle="Default Subtitle"
+            chart-title="Default Title"
+
+        -->
+        <div class='chartPairHorizontal'>
+        <git-logger-chart
+            id="chart-busy-month"
+            repo="https://github.com/StartAutomating/ugit"
+            label-text="ugit"
+            Year="2023"
+
+            metric="BusyMonth"
+            chartType="bar"
+            class="gitLoggerChartRootElement"
+            >
+        </git-logger-chart>
+        <git-logger-chart
+            id="chart-busy-month"
+            repo="https://github.com/StartAutomating/GitLogger"
+            label-text="GitLogger"
+            Year="2023"
+            metric="BusyMonth"
+            chartType="bar"
+            class="gitLoggerChartRootElement"
+            >
+        </git-logger-chart>
+
+        </div>
+    </div>
+    <div class='chartSelectorPair' id='chartPairChurn'>
+        <!-- extra filter
+         <year-month-selector
+            id="chart-churn-selector"
+            chart-id="chart-churn"
+            label-text="Churn for"
+            min-date="2020-01-01"
+            max-date="2024-01-01"
+        ></year-month-selector> -->
+        <div class='chartPairHorizontal'>
+            <!--
+                extra example
+            <git-logger-chart
+                id="chart-churn-a"
+                repo="https://github.com/StartAutomating/ugit"
+                label-text="ugit"
+                Year="2023"
+                Month="9"
+                metric="Churn"
+                chartType="bar"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+            -->
+
+            <div class="flexPair">
+                <!--
+                extra selector
+                <year-month-selector
+                    id="chart-churn-a-selector"
+                    chart-id-list="chart-churn-a,chart-churn-b,chart-churn-c"
+                    label-text="Churn for"
+                    min-date="2020-01-01"
+                    max-date="2024-01-01"
+                ></year-month-selector>
+                -->
+                <git-logger-chart
+                    id="chart-churn-b"
+                    repo="https://github.com/StartAutomating/GitLogger"
+                    label-text="GitLogger"
+                    Year="2023"
+                    metric="Churn"
+                    chartType="bar"
+                    class="gitLoggerChartRootElement"
+                    >
+                </git-logger-chart>
+            </div>
+            <git-logger-chart
+                id="chart-churn-c"
+                repo="https://github.com/StartAutomating/Pipescript"
+                label-text="Pipescript"
+                Year="2024"
+                Month="2"
+                metric="Churn"
+                chartType="bar"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+        </div><!-- end chartPairHorizontal -->
+    </div> <!-- end chartSelectorPair -->
+    <!-- <div class='chartSelectorPair' id='chartPairCommitCadence'>
+
+        <div class='chartPairHorizontal'> -->
+            <!-- <git-logger-chart
+                id="chart-commit-cadence"
+                repo="https://github.com/StartAutomating/ugit"
+                label-text="ugit"
+                Year="2023"
+                metric="CommitCadence"
+                chartType="bar"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+            <git-logger-chart
+                id="chart-commit-cadence"
+                repo="https://github.com/StartAutomating/GitLogger"
+                label-text="GitLogger"
+                Year="2023"
+                metric="CommitCadence"
+                chartType="bar"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart> -->
+
+        <!-- </div>end chartPairHorizontal -->
+    <!-- </div> end chartSelectorPair -->
+
+    <div class='chartSelectorPair' id='chartPairAttachRate'>
+            <!-- <year-month-selector
+                id="chart-churn-selector"
+                chart-id="chart-churn"
+                label-text="CommitCadence for"
+                min-date="2020-01-01"
+                max-date="2024-01-01"
+            ></year-month-selector> -->
+        <div class='chartPairHorizontal'>
+            <div class="flexPair">
+
+             <!-- <year-month-selector
+                id="chart-attach-rate-selector"
+                chart-id-list="chart-attach-rate,chart-attach-rate-two"
+                label-text="Attach Rate for"
+                min-date="2020-01-01"
+                max-date="2024-01-01"
+            ></year-month-selector>
+ -->
+
+                <!--
+
+                <year-month-selector
+                    id="chart-commit-cadence-a-selector"
+                    chart-id-list="chart-commit-cadence-a,chart-commit-cadence-b,chart-commit-cadence-c"
+                    label-text="CommitCadence for"
+                    min-date="2020-01-01"
+                    max-date="2024-01-01"
+                ></year-month-selector>
+                -->
+               <!-- <git-logger-chart
+                id="chart-attach-rate"
+                repo="https://github.com/StartAutomating/GitLogger"
+                dimension-title = 'First Author'
+                label-text="GitLogger"
+                Year="2023"
+                Month="04"
+                metric="AttachRate"
+                chartType="bar"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart> -->
+            </div>
+            <git-logger-chart
+                id="chart-attach-rate-two"
+                repo="https://github.com/StartAutomating/GitLogger"
+                dimension-title = 'First Author'
+                chart-title = 'Attach Rate'
+                label-text="GitLogger"
+                Year="2023"
+                metric="AttachRate"
+                chartType="pie"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+
+        </div><!-- end chartPairHorizontal -->
+    </div> <!-- end chartSelectorPair -->
+    <div class='chartSelectorPair' id='chartPairCommitCadence'>
+            <!-- <year-month-selector
+                id="chart-churn-selector"
+                chart-id="chart-churn"
+                label-text="CommitCadence for"
+                min-date="2020-01-01"
+                max-date="2024-01-01"
+            ></year-month-selector> -->
+        <div class='chartPairHorizontal'>
+            <git-logger-chart
+                id="chart-commit-cadence-a"
+                repo="https://github.com/StartAutomating/ugit"
+                label-text="ugit"
+                Year="2023"
+                Month="12"
+                metric="CommitCadence"
+                chartType="bar"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+
+            <div class="flexPair">
+                <!--
+
+                <year-month-selector
+                    id="chart-commit-cadence-a-selector"
+                    chart-id-list="chart-commit-cadence-a,chart-commit-cadence-b,chart-commit-cadence-c"
+                    label-text="CommitCadence for"
+                    min-date="2020-01-01"
+                    max-date="2024-01-01"
+                ></year-month-selector>
+                -->
+                <git-logger-chart
+                    id="chart-commit-cadence-b"
+                    repo="https://github.com/StartAutomating/GitLogger"
+                    label-text="GitLogger"
+                    Year="2023"
+                    Month="12"
+                    metric="CommitCadence"
+                    chartType="bar"
+                    class="gitLoggerChartRootElement"
+                    >
+                </git-logger-chart>
+            </div>
+            <git-logger-chart
+                id="chart-commit-cadence-c"
+                repo="https://github.com/StartAutomating/Pipescript"
+                label-text="Pipescript"
+                Year="2023"
+                Month="12"
+                metric="CommitCadence"
+                chartType="bar"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+        </div><!-- end chartPairHorizontal -->
+    </div> <!-- end chartSelectorPair -->
+    <div class='chartSelectorPair' id='chartPairCommitsByLanguage'>
+        <div class='chartPairHorizontal'>
+            <!-- extra example
+            <git-logger-chart
+                id="chart-commits-by-language-a"
+                repo="https://github.com/StartAutomating/ugit"
+                label-text="ugit"
+                Year="2024"
+                Month="2"
+                metric="CommitsByLanguage"
+                chartType="doughnut"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+            -->
+
+            <div class="flexPair">
+                <!--
+                    extra selector
+                <year-month-selector
+                    id="chart-commits-by-language-a-selector"
+                    chart-id-list="chart-commits-by-language-a,chart-commits-by-language-b,chart-commits-by-language-c"
+                    label-text="CommitsByLanguage for"
+                    min-date="2020-01-01"
+                    max-date="2025-01-01"
+                ></year-month-selector>
+                -->
+                <git-logger-chart
+                    id="chart-commits-by-language-b"
+                    repo="https://github.com/StartAutomating/GitLogger"
+                    label-text="GitLogger"
+                    Year="2024"
+                    Month="02"
+                    metric="CommitsByLanguage"
+                    chartType="doughnut"
+                    class="gitLoggerChartRootElement"
+                    >
+                </git-logger-chart>
+            </div>
+            <git-logger-chart
+                id="chart-commits-by-language-c"
+                repo="https://github.com/StartAutomating/Pipescript"
+                label-text="Pipescript"
+                Year="2024"
+                Month="2"
+                metric="CommitsByLanguage"
+                chartType="doughnut"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+        </div><!-- end chartPairHorizontal -->
+    </div> <!-- end chartSelectorPair -->
+    <div class='chartSelectorPair' id='chartPairCommitCount'>
+        <div class='chartPairHorizontal'>
+            <git-logger-chart
+                id="chart-commit-count-a"
+                repo="https://github.com/StartAutomating/ugit"
+                label-text="ugit"
+                Year="2023"
+                Month="11"
+                metric="CommitCount"
+                chartType="bar"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+
+            <div class="flexPair">
+                <year-month-selector
+                    id="chart-commit-count-a-selector"
+                    chart-id-list="chart-commit-count-a,chart-commit-count-b,chart-commit-count-c"
+                    label-text="CommitCount for"
+                    min-date="2020-01-01"
+                    max-date="2024-01-01"
+                ></year-month-selector>
+                <git-logger-chart
+                    id="chart-commit-count-b"
+                    repo="https://github.com/StartAutomating/GitLogger"
+                    label-text="GitLogger"
+                    Year="2023"
+                    Month="11"
+                    metric="CommitCount"
+                    chartType="bar"
+                    class="gitLoggerChartRootElement"
+                    >
+                </git-logger-chart>
+            </div>
+            <git-logger-chart
+                id="chart-commit-count-c"
+                repo="https://github.com/StartAutomating/Pipescript"
+                label-text="Pipescript"
+                Year="2023"
+                Month="11"
+                metric="CommitCount"
+                chartType="bar"
+                class="gitLoggerChartRootElement"
+                >
+            </git-logger-chart>
+        </div><!-- end chartPairHorizontal -->
+    </div> <!-- end chartSelectorPair -->
+
+
+</div><!-- end root .flexParent -->
+
+
+<!--
+<table id="metricNameTable">
+    <tr>
+        <th>
+            MetricName
+        </th>
+        <th>
+            Synopsis
+        </th>
+        <th>
+            Description
+        </th>
+    </tr>
+    {% for metric in site.data.GitLoggerMetrics %}
+    <tr>
+        <td>
+            <a href="#{{ metric.MetricName }}">{{ metric.MetricName }}</a>
+        </td>
+        <td>{{ metric.Synopsis }}</td>
+        <td>{{ metric.Description }}</td>
+    </tr>
+    {% endfor %}
+</table> -->
+
+
+<table id="metricNameTable">
+    <tr>
+        <th>
+            MetricName
+        </th>
+        <th>
+            Synopsis
+        </th>
+        <th>
+            Description
+        </th>
+    </tr>
+
+    <tr>
+        <td>
+            <a href="#AttachRate">AttachRate</a>
+        </td>
+        <td>Attach Rate by User</td>
+        <td>Gets the percentage of commit messages that reference an issue number or pull request.</td>
+    </tr>
+
+    <tr>
+        <td>
+            <a href="#BusyDayOfWeek">BusyDayOfWeek</a>
+        </td>
+        <td>Busy Day Of Week</td>
+        <td>Shows total lines changed by day of week.</td>
+    </tr>
+
+    <tr>
+        <td>
+            <a href="#BusyMonth">BusyMonth</a>
+        </td>
+        <td>Busy Month</td>
+        <td>Shows total lines changed by month of year.</td>
+    </tr>
+
+    <tr>
+        <td>
+            <a href="#Churn">Churn</a>
+        </td>
+        <td>Average number of files in a commit</td>
+        <td>Gets the average number of files in a commit by a contributer</td>
+    </tr>
+
+    <tr>
+        <td>
+            <a href="#CommitCadence">CommitCadence</a>
+        </td>
+        <td>Commit Cadence</td>
+        <td>Gets the total Commits per contributor and divides by their active timeframe.</td>
+    </tr>
+
+    <tr>
+        <td>
+            <a href="#CommitsByLanguage">CommitsByLanguage</a>
+        </td>
+        <td>Languages referenced in commits</td>
+        <td>Gets the percentage of commits referencing programming languages.</td>
+    </tr>
+
+    <tr>
+        <td>
+            <a href="#CommitCount">CommitCount</a>
+        </td>
+        <td>Commit Counts</td>
+        <td>Gets the number of commits by each contributor.</td>
+    </tr>
+
+    <tr>
+        <td>
+            <a href="#CommitRepeats">CommitRepeats</a>
+        </td>
+        <td>Commit Repeats</td>
+        <td>Total Repeated Commit Messages by User</td>
+    </tr>
+
+    <tr>
+        <td>
+            <a href="#IssueBreadth">IssueBreadth</a>
+        </td>
+        <td>Issue Breadth</td>
+        <td>Gets the distinct number of issues mentioned in commits by user.</td>
+    </tr>
+
+    <tr>
+        <td>
+            <a href="#LineCadence">LineCadence</a>
+        </td>
+        <td>Line Cadence</td>
+        <td>The total number of lines changed per user, divided by the time between commits.</td>
+    </tr>
+
+    <tr>
+        <td>
+            <a href="#LinesChanged">LinesChanged</a>
+        </td>
+        <td>Lines Changed</td>
+        <td>Lines Changed by a user</td>
+    </tr>
+
+    <tr>
+        <td>
+            <a href="#NetLineCadence">NetLineCadence</a>
+        </td>
+        <td>Net Line Cadence</td>
+        <td>The insertions-deletions changed per user, divided by the time between commits.</td>
+    </tr>
+
+    <tr>
+        <td>
+            <a href="#NetLinesChanged">NetLinesChanged</a>
+        </td>
+        <td>Net Lines Changed</td>
+        <td>Total Insertions - Total Deletions by UserName</td>
+    </tr>
+</table>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="text/javascript">
+
+var chartPairs
+var tableToc
+
+function setChartsHideProperty() {
+    /**
+     * @description hides all examples (for jekyll page)
+     */
+    chartPairs.forEach( (pair) => {
+        pair.classList.add('hide')
+    })
+}
+
+function switchByName( name ) {
+    /**
+     * @description toggle groupings of <git-logger-chart> s and <year-month-selector> s
+     * @param {string} name
+     */
+    setChartsHideProperty()
+    const selectorTargetId = `#chartPair${ name }`
+    // hardcoded, working version:
+    // document.querySelector('#chartPairCommitCadence').classList.remove('hide')
+    // console.log( `switchByName: ${ name } `, selectorTargetId )
+    document.querySelector( selectorTargetId )?.classList.remove('hide')
+
+    const pairs = document.getElementById(`chartPair${ name }`)
+    const pairChildren = pairs?.querySelectorAll('git-logger-chart')
+    if( ! pairChildren ) { return }
+    pairChildren.forEach((glc) => {
+        glc.chartAnimate_Show()
+    })
+}
+
+function init() {
+    /*
+        globals for script for Metrics page
+    */
+    // if hide animations for charts, first load only. instead, instantly hide them
+    if(false) {
+        Array.from(
+            document.getElementsByTagName('git-logger-chart') ).
+            forEach( (glc) => glc.chartAnimate_Hide() )
+    }
+
+    ym_list = document.getElementsByTagName('year-month-selector')[0]
+    ym = ym_list
+
+    chartPairs = document.querySelectorAll('div.chartSelectorPair')
+    tableToc = document.querySelector('#metricNameTable')
+
+    tableToc.querySelectorAll('a').forEach( (elemLink) => {
+        elemLink.addEventListener('click', (event) => {
+            const eventHref = event.target.getAttribute('href')
+            // console.log(event, eventHref)
+            const baseName = eventHref.replace(  /#/, '')
+            switchByName( baseName )
+        })
+    })
+}
+
+window.addEventListener( "load", ( event ) => {
+    init()
+    setChartsHideProperty()
+    switchByName('CommitsByLanguage')
+} )
+</script>
