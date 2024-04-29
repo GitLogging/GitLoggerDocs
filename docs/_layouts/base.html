@@ -1,41 +1,49 @@
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="https://4bitcss.com/iceberg-dark.css" />
-        <link rel="stylesheet" type="text/css" href="/Flexibits.css" />
-        <link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet'>
-        <meta name="viewport" content="width=device-width" />
-        <style>
+<!doctype html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Document title</title>
+    <link rel="stylesheet" type="text/css" href="http://4bitcss.com/iceberg-dark.css" />
+    <link rel="stylesheet" type="text/css" href="/Flexibits.css" />
+    <link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width" />
+    <style>
+        body {
+            font-family: "Comfortaa";
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        @media (max-width: 1920px) {
             body {
-                font-family: "Comfortaa";
+                font-size: 1.25em;
             }
-            a {
-                text-decoration: none;
+        }
+
+        @media (min-width: 1921px) {
+            body {
+                font-size: 2.5em;
             }
-            @media (max-width: 1920px) {
-                body {
-                    font-size: 1.25em;
-                }
-            }
-            @media (min-width: 1921px) {
-                body {
-                    font-size: 2.5em;
-                }
-            }
-        </style>
-        {% if site.analyticsID %}
-        <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id={{site.analyticsID}}"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '{{site.analyticsID}}');
-        </script>
-        {% endif %}
-    </head>
-    <body class="wholeWidth">
-        {{content}}
-    </body>
+        }
+    </style>
+    {% if site.analyticsID %}
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{site.analyticsID}}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag () { dataLayer.push( arguments ); }
+        gtag( 'js', new Date() );
+        gtag( 'config', '{{site.analyticsID}}' );
+    </script>
+    {% endif %}
+</head>
+
+<body class="wholeWidth">
+    {{content}}
+</body>
+
 </html>
-
-
