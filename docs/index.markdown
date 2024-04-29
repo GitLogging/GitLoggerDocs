@@ -3,6 +3,7 @@
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 layout: home
 description: Watch Your Git
+title: Watch Your Git
 ---
 
 GitLogger is a simple service that helps you watch your git.

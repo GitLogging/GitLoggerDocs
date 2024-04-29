@@ -3,12 +3,18 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>GitLogger - Watch your Git</title>
-    <link rel="stylesheet" type="text/css" href="https://4bitcss.com/iceberg-dark.css" />
+    <!-- <title>GitLogger - Watch your Git</title> -->
+    <title>GitLogger - {{page.title}}</title>
+
+    <!-- cross domain css was triggering errors because local jekyll isn't tls -->
+    <!-- <link rel="stylesheet" type="text/css" href="https://4bitcss.com/iceberg-dark.css" /> -->
+    <!--
     <link rel="stylesheet" type="text/css" href="/style/Flexibits1.css" />
     <link rel="stylesheet" type="text/css" href="/style/Flexibits2.css" />
+    <link rel="stylesheet" type="text/css" href="https://4bitcss.com/iceberg-dark.css" />
+    <link rel="stylesheet" type="text/css" href="/Flexibits.css" />
+    -->
     <link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet'>
-    <meta name="viewport" content="width=device-width" />
     <style>
         body {
             font-family: "Comfortaa";
