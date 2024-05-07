@@ -495,9 +495,7 @@ h3 {
 
         const shadow = this.#shadow
         // clean up Jekyll links for: #125
-        let pathJekyllPrefix = '../style/' ?? '' // to work around Jekyll's relative paths
-        pathJekyllPrefix = ''
-        pathJekyllPrefix = '../style/'
+        let pathJekyllPrefix = '/style/'
         shadow.replaceChildren();
         if ( this.verboseLogging ) {
             console.log( "[GitLoggerChartElement]::rebuildAll [docs/module/gitLoggerChartElement.js]" )
@@ -512,22 +510,23 @@ h3 {
         style0.setAttribute( 'rel', 'stylesheet' );
         shadow.appendChild( style0 )
 
-        const style1 = document.createElement( 'link' )
-        style1.setAttribute( 'href', `${ pathJekyllPrefix }Flexbits.css` )
-        style1.setAttribute( 'href', `style/Flexbits2.css` )
-        style1.setAttribute( 'href', `style/Flexbits1.css` )
-        style1.setAttribute( 'rel', 'stylesheet' )
-        shadow.appendChild( style1 )
-        const style2 = document.createElement( 'link' )
-        style2.setAttribute( 'href', `${ pathJekyllPrefix }iceberg-dark.css` )
-        style2.setAttribute( 'rel', 'stylesheet' )
-        shadow.appendChild( style2 )
-        const style3 = document.createElement( 'link' )
-        style3.setAttribute( 'href', `${ pathJekyllPrefix }base.css` )
-        style3.setAttribute( 'rel', 'stylesheet' )
-        const style4 = document.createElement( 'link' )
-        style4.setAttribute( 'href', `${ pathJekyllPrefix }gitLoggerChart.css` )
-        style4.setAttribute( 'rel', 'stylesheet' )
+        // const style1 = document.createElement( 'link' )
+        // these break because of jekyll cross protocol setup
+        // style1.setAttribute( 'href', `${ pathJekyllPrefix }Flexibits.css` )
+        // style1.setAttribute( 'href', `style/Flexbits2.css` )
+        // style1.setAttribute( 'href', `style/Flexbits1.css` )
+        // style1.setAttribute( 'rel', 'stylesheet' )
+        // shadow.appendChild( style1 )
+        // const style2 = document.createElement( 'link' )
+        // style2.setAttribute( 'href', `${ pathJekyllPrefix }iceberg-dark.css` )
+        // style2.setAttribute( 'rel', 'stylesheet' )
+        // shadow.appendChild( style2 )
+        // const style3 = document.createElement( 'link' )
+        // style3.setAttribute( 'href', `${ pathJekyllPrefix }base.css` )
+        // style3.setAttribute( 'rel', 'stylesheet' )
+        // const style4 = document.createElement( 'link' )
+        // style4.setAttribute( 'href', `${ pathJekyllPrefix }gitLoggerChart.css` )
+        // style4.setAttribute( 'rel', 'stylesheet' )
 
         const divRoot = document.createElement( 'div' ); // effective base. is also '#ctx'
         divRoot.setAttribute( 'id', 'gitloggerChartRoot' );
@@ -536,17 +535,17 @@ h3 {
 
         // div.style = `position: relative; height:80vh; width:80vw`
         // <link href="style/base.css" rel="stylesheet"></link>
-        const debugStyle = document.createElement( 'link' )
-        debugStyle.setAttribute( 'href', `${ pathJekyllPrefix }usingDebug.css` )
-        debugStyle.setAttribute( 'rel', 'stylesheet' )
-        if ( this.hasAttribute( 'debug-css' ) ) {
-            shadow.appendChild( debugStyle );
-        }
+        // const debugStyle = document.createElement( 'link' )
+        // debugStyle.setAttribute( 'href', `${ pathJekyllPrefix }usingDebug.css` )
+        // debugStyle.setAttribute( 'rel', 'stylesheet' )
+        // if ( this.hasAttribute( 'debug-css' ) ) {
+        //     shadow.appendChild( debugStyle );
+        // }
 
-        const tempStyle = document.createElement( 'link' )
-        tempStyle.setAttribute( 'href', `${ pathJekyllPrefix }base.css` )
-        tempStyle.setAttribute( 'rel', 'stylesheet' )
-        shadow.appendChild( tempStyle );
+        // const tempStyle = document.createElement( 'link' )
+        // tempStyle.setAttribute( 'href', `${ pathJekyllPrefix }base.css` )
+        // tempStyle.setAttribute( 'rel', 'stylesheet' )
+        // shadow.appendChild( tempStyle );
 
         const optionalDivTitle = document.createElement( 'div' )
         optionalDivTitle.setAttribute( 'class', 'elementLabel' )
