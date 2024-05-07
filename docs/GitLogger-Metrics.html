@@ -1,22 +1,45 @@
+---
+# Feel free to add content and custom Front Matter to this file.
+# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
+title: GitLogger Metrics
+permalink: /GitLogger-Metrics3/
+---
+<!doctype html>
+<html lang="en-US">
 <head>
-    <script src="https://momentjs.com/downloads/moment.min.js"></script>
-    <script type="module" src="module/main.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <!-- <title>GitLogger - Watch your Git</title> -->
+    <title>GitLogger - {{page.title}}</title>
+    <!--
+    For CDN links, use: https://cdn.jsdelivr.net/gh/2bitdesigns/4bitcss@latest/css/iceberg-dark.css,
+    or latest-versions: https://4bitcss.com/iceberg-dark/iceberg-dark.css
+    -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/2bitdesigns/4bitcss@latest/css/iceberg-dark.css" />
     <link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet'>
-    <link href="style/gitlogger-chart.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="style/iceberg-dark.css" />
-    <!-- <link rel="stylesheet" type="text/css" href="Flexibits.css" /> -->
-    <!-- <link rel="stylesheet" type="text/css" href="style/Flexbits.css" /> -->
-    <!-- <link rel="stylesheet" type="text/css" href="./style/Flexbits1.css" /> -->
-    <!-- <link rel="stylesheet" type="text/css" href="./style/Flexbits2.css" /> -->
-    <link rel="stylesheet" type="text/css" href="./style/base.simplified.css" />
-</head>
-<style>
-    th, td {
-        padding: .25em
-    }
-    .hide {
-        display: none;
-    }
+    <style>
+        body {
+            font-family: "Comfortaa";
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        @media (max-width: 1920px) {
+            body {
+                font-size: 1.25em;
+            }
+        }
+
+        @media (min-width: 1921px) {
+            body {
+                font-size: 2.5em;
+            }
+        }
+    /* overrides */
+    th, td { padding: .25em }
+    .hide {         display: none; }
 
     div.chartPairHorizontal {
         display: flex;
@@ -33,6 +56,37 @@
         margin: auto;
     }
 </style>
+<!--
+    <head>
+
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+    <script type="module" src="module/main.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet'>
+    <link href="style/gitlogger-chart.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style/iceberg-dark.css" />
+    <link rel="stylesheet" type="text/css" href="Flexibits.css" />
+    <link rel="stylesheet" type="text/css" href="style/Flexbits.css" />
+    <link rel="stylesheet" type="text/css" href="./style/Flexbits1.css" />
+    <link rel="stylesheet" type="text/css" href="./style/Flexbits2.css" />
+    <link rel="stylesheet" type="text/css" href="./style/base.simplified.css" />
+</head>
+-->
+
+    <!-- <script type="module" src="module/main.js"></script> -->
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet'>
+    <script type="module" src="./module/main.js"></script>
+    <!-- <link href="style/gitlogger-chart.css" rel="stylesheet"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="style/iceberg-dark.css" /> -->
+    <!-- <link rel="stylesheet" type="text/css" href="Flexibits.css" /> -->
+    <!-- <link rel="stylesheet" type="text/css" href="style/Flexbits.css" /> -->
+    <!-- <link rel="stylesheet" type="text/css" href="style/Flexbits1.css" /> -->
+    <!-- <link rel="stylesheet" type="text/css" href="style/Flexbits2.css" /> -->
+    <!-- <link rel="stylesheet" type="text/css" href="style/base.simplified.css" /> -->
+</head>
+
+
+<!-- <script type="module" src="./module/main.js"></script> -->
 
 
 
