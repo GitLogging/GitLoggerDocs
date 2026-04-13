@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+    class="feather feather-copy">
+    <style type="text/css">:root {
+        /* note: svg does not inherit color if it's an 'img' element */
+        --fg-default: hsl(190.5, 31.8%, 64.9%);
+        --fg-dim-1: hsl(190.5, 31.8%, 40.9%);
+        --fg-dim-2: hsl(190.5, 31.8%, 20.9%);
+        --fg: var( --green );
+        --fg: var( --fg-default );
+        --fg: var( --fg-dim-1 );
+        color: var(--fg);
+        }
+    </style>
+    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+</svg>

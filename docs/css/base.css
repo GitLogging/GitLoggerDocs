@@ -1,0 +1,246 @@
+@import url('iceberg-dark.css');
+
+:root {
+    --font-family-default-sans: Comfortaa, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    --page-max-width: 960px;
+    --space-lg: 4rem;
+    --space-md: 2rem;
+    --space-sm: 1rem;
+    --radius: 6px;
+    --accent: var(--cyan);
+    --surface: var(--black);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-family-default-sans);
+    line-height: 1.6;
+}
+
+/* ── Nav ─────────────────────────────────────────── */
+nav {
+    /* border-bottom: 1px solid var(--brightBlack); */
+    padding: var(--space-sm) var(--space-md);
+    padding-top: 0;
+    padding-bottom: 0;
+    /* outline: 2px solid red; */
+}
+
+.site-logo {
+    width: 100%;
+    height: auto;
+    display: block;
+    /* max-height: 300px; */
+}
+
+/* ── Article / page body ─────────────────────────── */
+article {
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+}
+
+/* ── Hero ────────────────────────────────────────── */
+.hero {
+    text-align: center;
+    padding: var(--space-lg) 0;
+    padding-top: 0;
+}
+
+.hero h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    margin: 0 0 var(--space-sm);
+    color: var(--brightWhite);
+    letter-spacing: -0.02em;
+}
+
+.hero-sub {
+    font-size: 1.15rem;
+    color: var(--brightBlack);
+    max-width: 560px;
+    margin: 0 auto var(--space-md);
+}
+
+/* ── CTA button ──────────────────────────────────── */
+.cta-btn {
+    display: inline-block;
+    padding: 0.75rem 1.75rem;
+    background-color: var(--accent);
+    color: var(--background);
+    text-decoration: none;
+    border-radius: var(--radius);
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition: opacity 0.15s;
+}
+
+.cta-btn:hover,
+.cta-btn:visited {
+    color: var(--background);
+    opacity: 0.85;
+}
+
+/* ── Callout sections ────────────────────────────── */
+.callout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+    align-items: center;
+    padding: var(--space-lg) 0;
+    border-top: 1px solid var(--surface);
+}
+
+.callout--reverse {
+    direction: rtl;
+}
+
+.callout--reverse > * {
+    direction: ltr;
+}
+
+.callout-img img {
+    width: 100%;
+    border-radius: var(--radius);
+    border: 1px solid var(--brightBlack);
+    display: block;
+}
+
+.callout-text h2 {
+    font-size: 1.6rem;
+    margin: 0 0 var(--space-sm);
+    color: var(--brightWhite);
+}
+
+.callout-text p {
+    margin: 0 0 var(--space-sm);
+    color: var(--foreground);
+}
+
+.callout-detail {
+    font-style: italic;
+    color: var(--brightBlack) !important;
+    font-size: 0.9rem;
+}
+
+/* ── Metrics grid ────────────────────────────────── */
+.metrics {
+    border-top: 1px solid var(--surface);
+    padding: var(--space-lg) 0;
+}
+
+.metrics-heading {
+    font-size: 1.6rem;
+    color: var(--brightWhite);
+    margin: 0 0 var(--space-sm);
+    text-align: center;
+}
+
+.metrics-sub {
+    text-align: center;
+    color: var(--brightBlack);
+    margin: 0 0 var(--space-lg);
+    font-size: 0.95rem;
+}
+
+.metrics-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: var(--space-sm);
+}
+
+.metrics-grid li {
+    background-color: var(--surface);
+    border-radius: var(--radius);
+    padding: var(--space-sm) calc(var(--space-sm) * 1.25);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.metric-name {
+    font-weight: bold;
+    color: var(--accent);
+    font-size: 0.9rem;
+}
+
+.metric-desc {
+    color: var(--foreground);
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+/* ── Pricing ─────────────────────────────────────── */
+.pricing {
+    border-top: 1px solid var(--surface);
+    padding: var(--space-lg) 0;
+    text-align: center;
+}
+
+.pricing-inner {
+    background-color: var(--surface);
+    border-radius: var(--radius);
+    padding: var(--space-lg) var(--space-md);
+    display: inline-block;
+    min-width: 340px;
+    max-width: 560px;
+    width: 100%;
+}
+
+.pricing h2 {
+    margin: 0 0 var(--space-sm);
+    color: var(--brightWhite);
+}
+
+.pricing-amount {
+    font-size: 2.8rem;
+    font-weight: bold;
+    color: var(--accent);
+    margin: 0 0 var(--space-sm);
+}
+
+.pricing-amount span {
+    font-size: 1rem;
+    color: var(--brightBlack);
+    font-weight: normal;
+}
+
+.pricing-desc {
+    color: var(--foreground);
+    margin: 0 0 var(--space-md);
+    font-size: 0.95rem;
+}
+
+/* ── Aside / footer ──────────────────────────────── */
+aside {
+    border-top: 1px solid var(--surface);
+    text-align: center;
+    padding: var(--space-md);
+}
+
+.footer-note {
+    color: var(--brightBlack);
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+/* ── Responsive ──────────────────────────────────── */
+@media (max-width: 640px) {
+    .callout {
+        grid-template-columns: 1fr;
+    }
+
+    .callout--reverse {
+        direction: ltr;
+    }
+}
