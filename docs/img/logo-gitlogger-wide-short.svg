@@ -18,8 +18,7 @@
         y="47%"
         font-size="1.2em"
         class="foreground-fill">
-    <tspan font-size="1em">Git</tspan>
-    <tspan font-size="1em">Logger</tspan>
+    <tspan font-size="1em">GitLogger</tspan>
   </text>
   <line x1="-500%"
         x2="500%"
