@@ -1,6 +1,8 @@
 @import url('iceberg-dark.css');
 
 :root {
+    --font-family-monospace: 'Cascadia Code';
+
     --font-family-default-sans: Comfortaa, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     --page-max-width: 960px;
     --space-lg: 4rem;
@@ -9,6 +11,7 @@
     --radius: 6px;
     --accent: var(--cyan);
     --surface: var(--black);
+
 }
 
 *,
@@ -232,6 +235,20 @@ aside {
     color: var(--brightBlack);
     font-size: 0.85rem;
     margin: 0;
+}
+
+pre:has(code) {
+    margin-inline: 2rem;
+    margin-block: 1.4rem;
+}
+
+code {
+    --border: rgba(107, 112, 137, 0.2537);
+    /* font-family: 'Courier New', Courier, monospace; */
+    font-family: var(--font-family-monospace, ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace);
+    font-size: 0.9rem;
+    outline: 2px solid var(--border);
+    border-radius: var(--radius);
 }
 
 /* ── Responsive ──────────────────────────────────── */
