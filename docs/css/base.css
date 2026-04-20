@@ -99,6 +99,23 @@ nav {
     width: 100%;
 }
 
+.nav-menu li:first-child a {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    padding: 0;
+}
+
+.nav-menu li:first-child a::after {
+    display: none;
+}
+
+.site-logo-nav {
+    display: block;
+    height: 50px;
+    width: auto;
+}
+
 .site-logo {
     width: 100%;
     height: auto;
