@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting started with GitLogger</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
+    <link rel="stylesheet" href="./css/base.css">
+</head>
+
+<body>
+
+    <nav>
+        <div class="nav-inner">
+            <a href="https://gitlogger.com/">
+                <img src="./img/logo-gitlogger-wide.svg" alt="GitLogger" class="site-logo">
+            </a>
+        </div>
+    </nav>
+
+    <article>
+        <section class="hero">
+            <h1>Getting started with GitLogger</h1>
+            <p class="hero-sub">To get started, you'll need to add some data from a repository. This is really easy if your project is on
+                GitHub, and pretty easy to do for any Git repository.</p>
+        </section>
+
+        <section class="guide-section">
+            <h2>Using the GitLogger GitHub Action</h2>
+            <p>If your repository is on GitHub, you can use the <a href="https://github.com/GitLogging/GitLoggerAction">GitLogger GitHub
+                    Action</a> to get up and running.</p>
+            <p>Just copy/paste this step into any job. Use a "push" trigger to make sure you capture every commit.</p>
+            <pre><code>- name: Run GitLogger
+  uses: GitLogging/GitLoggerAction@main</code></pre>
+        </section>
+
+        <section class="guide-section">
+            <h2>Pushing Changes directly</h2>
+            <p>If your repository is not on GitHub, you'll have to use a bit of PowerShell to import your logs.</p>
+            <p>You'll also need to install <a href="https://github.com/StartAutomating/ugit">ugit</a> from the PowerShell gallery.</p>
+            <pre><code># Fetch all of your git history
+git fetch --unshallow | Write-Verbose
+
+# Determine the URL for your repo
+$gitRemoteUrl = git remote | git remote get-url | Select-Object -First 1
+Write-Progress "Getting Logs" " $gitRemoteUrl " -Id $progId
+
+# Get logs with detailed stats
+$gitLogs = git log --stat |
+    Foreach-Object {
+        # Standardize the datetime
+        $_.CommitDate = $_.CommitDate.ToString('s')
+        # Join all of the output lines
+        $_.GitOutputLines = $_.GitOutputLines -join [Environment]::NewLine
+        $_ |
+            Add-Member NoteProperty RepositoryURL $gitRemoteUrl.RemoteUrl -Force -PassThru
+    }
+
+$gitLogsJSON = $gitLogs | ConvertTo-Json -Depth 20
+
+$gitLoggerPushUrl = 'https://gitloggerfunction.azurewebsites.net/PushGitLogger/'
+
+$gotResponse = Invoke-RestMethod -Uri $gitLoggerPushUrl
+
+if (-not $gotResponse) {
+    Write-Error "$gitloggerPushUrl unavailable"
+    return
+}
+
+$repoRestUrl = $gitLoggerPushUrl + '/' + ($gitRemoteUrl.RemoteUrl -replace '^(?>https?|git|ssh)://' -replace '\.git$') + '.git'
+Invoke-RestMethod -Uri $repoRestUrl -Body $allJson -Method Post</code></pre>
+        </section>
+    </article>
+
+    <aside>
+        <p class="footer-note">GitLogger &mdash; metrics that help you know your repos in and out.</p>
+    </aside>
+
+</body>
+
+</html>
