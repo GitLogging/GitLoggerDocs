@@ -49,19 +49,6 @@ nav {
     height: 70px;
 }
 
-.nav-logo {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-    min-width: 150px;
-    max-width: 180px;
-}
-
-.nav-logo img {
-    width: 100%;
-    height: auto;
-}
-
 .nav-menu {
     display: flex;
     list-style: none;
@@ -108,18 +95,6 @@ nav {
 
 .nav-menu li:first-child a::after {
     display: none;
-}
-
-.site-logo-nav {
-    display: block;
-    height: 50px;
-    width: auto;
-}
-
-.site-logo {
-    width: 100%;
-    height: auto;
-    display: block;
 }
 
 /* ── Article / page body ─────────────────────────── */
