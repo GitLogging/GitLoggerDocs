@@ -45,7 +45,7 @@ nav {
     padding: 0 var(--space-md);
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     height: 70px;
 }
 
@@ -132,7 +132,7 @@ article {
 /* ── Hero ────────────────────────────────────────── */
 .hero {
     text-align: center;
-    padding: var(--space-lg) 0;
+    padding: var(--space-md) 0;
     padding-top: 0;
 }
 
