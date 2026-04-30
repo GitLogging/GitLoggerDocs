@@ -1,6 +1,6 @@
 ﻿<#
 .SYNOPSIS
-    Layout script
+    Layout script: Builds files into html/css/js/json
 .DESCRIPTION
     This script is used to layout a page with a consistent style and structure.
 #>
@@ -23,9 +23,9 @@ param(
 )
 
 # Collect array then emit html document
-$allInput = @( $input )
+$AllInput = @( $input )
 
-$htmlHeader  = @"
+$HtmlHeader  = @"
 <!doctype html>
 <html lang="en">
 
@@ -42,7 +42,7 @@ $htmlHeader  = @"
 <body>
 "@
 
-$htmlFooter = @"
+$HtmlFooter = @"
     <aside>
         <p class="footer-note">GitLogger &mdash; metrics that help you know your repos in and out.</p>
     </aside>
@@ -50,7 +50,7 @@ $htmlFooter = @"
 </html>
 "@
 
-$htmlHeader
-$htmlMenu
-$allInput -join [Environment]::Newline
-$htmlFooter
+$HtmlHeader
+$HtmlMenu
+$AllInput -join [Environment]::Newline
+$HtmlFooter

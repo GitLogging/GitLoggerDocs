@@ -61,7 +61,7 @@ jobs:
         uses: actions/upload-pages-artifact@main
         with:
           # Upload the contents to the GitHub Pages artifact
-          path: './'
+          path: './docs' # before, or after the page's build dir: "/docs" ?
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@main
