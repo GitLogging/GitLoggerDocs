@@ -5,9 +5,15 @@
 param(
     [switch] $Archive
 )
-":::build.ps1: Started $( Get-Date )" | Write-Host
-
+":::build.ps1:::Started $( Get-Date )" | Write-Host
 Set-Alias 'layout' -Value (Get-Item -ea 'stop'  './layout.ps1' )
+
+$Site = [Ordered]@{}
+$Site['LastBuildTime'] = $LastBuildTime = [DateTime]::Now
+
+# $Site.Files =
+#     if ($filePath) { Get-ChildItem -Recurse -File -Path $FilePath }
+#     else { Get-ChildItem -Recurse -File }
 
 # find and build files: *.html.ps1
 $PSFiles_Html = gci *.html.ps1 -Recurse
@@ -29,3 +35,6 @@ if( $Archive ) {
     Compress-Archive -Path '.' -DestinationPath $OutputArchivePath -CompressionLevel Optimal -Force
     ":::build.ps1:::archived: '{0}'" -f $OutputArchivePath | Write-Host
 }
+
+$TotalBuildDuration = [DateTime]::Now - $LastBuildTime
+':::build.ps1:::Total Duration: {0:n0} ms' -f $TotalBuildDuration.TotalMilliseconds
