@@ -1,6 +1,6 @@
 ﻿if ($PSScriptRoot) { Push-Location $PSScriptRoot}
 # "🐒:::building: $PSScriptRoot (as out)" | Out-Host
-"🐒:::index.html.ps1: $PSScriptRoot (as write)" | Write-Host
+":::index.html.ps1:::${PSScriptRoot} (as write)" | Write-Host
 
 # if (-not (Test-Path ./Examples)) {
 #     $null = New-Item -ItemType Directory -Path ./Examples -Force
