@@ -31,7 +31,7 @@ $Site['Files'].Values.FullName
 
 foreach($file in $PSFiles_Html) {
     $OutFilePath = $file.FullName -replace '\.html\.ps1', '.html'
-    & $PSFiles_Html
+    & $file
         | Layout # -PageTitle 'GitLogger'
         | Set-Content -path $OutFilePath -encoding utf8
     ':::build.ps1:::wrote: "{0}"' -f $OutFilePath | Write-Host

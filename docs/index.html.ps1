@@ -7,8 +7,7 @@
 # }
 # "<html><body><h3>Hi world $(Get-Date)" | Set-Content 'index.html' -encoding utf8
 
-@"
-
+@'
     <article>
         <section class="hero">
             <h1>Watch Your Git</h1>
@@ -120,7 +119,7 @@
             </div>
         </section>
     </article>
-"@
+'@
 
 
 # Copy-Item ../Examples/* ./Examples -Force

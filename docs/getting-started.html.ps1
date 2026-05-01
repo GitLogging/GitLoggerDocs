@@ -1,27 +1,13 @@
-<!doctype html>
-<html lang="en">
+﻿if ($PSScriptRoot) { Push-Location $PSScriptRoot}
+# "🐒:::building: $PSScriptRoot (as out)" | Out-Host
+":::index.html.ps1:::PSScriptRoot: ${PSScriptRoot}" | Write-Host
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitLogger — Watch Your Git</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
-    <link rel="stylesheet" href="./css/base.css">
-    <script src="js/highlight.min.js"></script>
-    <script>hljs.highlightAll();</script>
-</head>
+# if (-not (Test-Path ./Examples)) {
+#     $null = New-Item -ItemType Directory -Path ./Examples -Force
+# }
+# "<html><body><h3>Hi world $(Get-Date)" | Set-Content 'index.html' -encoding utf8
 
-<body>
-    <nav>
-        <div class="nav-inner">
-            <ul class="nav-menu">
-                <li><a href="index.html">GitLogger</a></li>
-                <li><a href="getting-started.html">Getting Started</a></li>
-                <li><a href="about-us.html">About Us</a></li>
-                <li><a href="index.html#pricing">Pricing</a></li>
-            </ul>
-        </div>
-    </nav>
+@'
  <article>
         <section class="hero">
             <h1>Getting started with GitLogger</h1>
@@ -76,8 +62,11 @@ Invoke-RestMethod -Uri $repoRestUrl -Body $allJson -Method Post</code></pre>
         </section>
     </article>
 
-    <aside>
-        <p class="footer-note">GitLogger &mdash; metrics that help you know your repos in and out.</p>
-    </aside>
-</body>
-</html>
+'@
+
+
+# Copy-Item ../Examples/* ./Examples -Force
+# Copy-Item ../README.md.ps1 ./ -Force
+# ./README.md.ps1 > ./README.md
+# (ConvertFrom-Markdown -Path ./README.md).Html
+if ($PSScriptRoot) { Pop-Location}
