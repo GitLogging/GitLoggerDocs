@@ -6,17 +6,26 @@ param(
     [switch] $Archive
 )
 ":::build.ps1:::Started $( Get-Date )" | Write-Host
-Set-Alias 'layout' -Value (Get-Item -ea 'stop'  './layout.ps1' )
+Set-Alias 'layout' -Value ( Get-Item -ea 'stop'  './layout.ps1' )
 
 $Site = [Ordered]@{}
 $Site['LastBuildTime'] = $LastBuildTime = [DateTime]::Now
+$Site['Files'] = [ordered]@{}
 
-# $Site.Files =
-#     if ($filePath) { Get-ChildItem -Recurse -File -Path $FilePath }
-#     else { Get-ChildItem -Recurse -File }
+$Files_Template = gci './docs/template' -File -recurse
+    | ?{ $_.Extension -match '\.(css|html|js|json|ps1)' }
+
+foreach( $item in $Files_Template ) {
+    # Does not include relativepath as a prefix, for now.
+    $Site['Files'][ $item.Name ] = $Item
+}
 
 # find and build files: *.html.ps1
-$PSFiles_Html = gci *.html.ps1 -Recurse
+$PSFiles_Html = gci './docs' -Filter *.html.ps1 -Recurse
+
+$Site['Files'].Values.FullName
+    | Join-string -sep ', ' -DoubleQuote -op ':::build.ps1:::Files = '
+    | Write-verbose
 
 foreach($file in $PSFiles_Html) {
     $OutFilePath = $file.FullName -replace '\.html\.ps1', '.html'
