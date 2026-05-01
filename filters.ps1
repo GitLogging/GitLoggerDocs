@@ -22,6 +22,20 @@ filter yaml_header_pattern {
 ','IgnoreCase, IgnorePatternWhitespace')
 }
 
+
+filter relative_path {
+    <#
+    .example
+        > $site.Files.'nav_menu.html' | Relative_path './docs'
+        # out: template\nav_menu.html
+    #>
+    param( $RelativeTo = '.' )
+
+    $RelativeTo = Get-Item $RelativeTo
+    $item = $_
+    [System.IO.Path]::GetRelativePath( $RelativeTo, $Item )
+}
+
 filter yaml_header {
     $in = $_
     if ($in -is [IO.FileInfo]) {

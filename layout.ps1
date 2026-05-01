@@ -42,13 +42,8 @@ $HtmlHeader  = @"
 <body>
 "@
 
-$HtmlFooter = @"
-    <aside>
-        <p class="footer-note">GitLogger &mdash; metrics that help you know your repos in and out.</p>
-    </aside>
-</body>
-</html>
-"@
+$HtmlFooter =
+    Get-Content -raw $Site['Files'].'base_footer.html'
 
 $HtmlHeader
 $HtmlMenu
