@@ -93,8 +93,8 @@ if (-not (Test-Path $DraftsRoot)) {
 
 foreach ($draft in $site['com.github.api.repos.issues.drafts']) {
     $draftOutput = Join-Path $DraftsRoot "$($draft.number).html"
-    $draft.body | 
-        from_markdown |
+    "<article>$($draft.body | 
+        from_markdown)</article>" |
         layout |
         Set-Content -Path $draftOutput -Encoding UTF8
 
