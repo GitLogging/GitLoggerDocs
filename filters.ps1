@@ -3,6 +3,67 @@
     Common filters and converting html/json/md/etc
 #>
 
+#region PowerShell Specific Filters
+filter RequireModule {
+    <#
+    .SYNOPSIS
+        Installs a module if it is not already loaded.
+    .DESCRIPTION
+        Installs a PowerShell module if it is not already loaded.
+    #>
+    $requirementName = $_
+    if ($requirementName -is [Management.Automation.ExternalScriptInfo]) {
+        $requirementName.ScriptBlock.Ast.ScriptRequirements.RequiredModules.Name |
+            RequireModule
+        return
+    }
+    if (! $requirementName) {
+        return
+    }
+    $alreadyLoaded = Import-Module -Name $requirementName -PassThru -ErrorAction Ignore -Global
+    # If they're not already loaded, we'll install them.
+    if (-not $alreadyLoaded) {
+        Install-Module -AllowClobber -Force -Name $requirementName -Scope CurrentUser
+        $alreadyLoaded = Import-Module -Name $requirementName -PassThru -ErrorAction Ignore -Global
+        if ($file.FullName) {
+            Write-Host "Installed $($alreadyLoaded.Name) for $($file.FullName)"
+        }
+    } elseif ($file.FullName) {
+        Write-Host "Already loaded $($alreadyLoaded.Name) for $($file.FullName)"
+    }
+}
+
+filter Splat {
+    $in = $_
+    if ($in -isnot [Management.Automation.CommandInfo]) { return }
+    $splat = [Ordered]@{}
+    :nextParameter foreach ($parameterName in $in.Parameters.Keys) {
+        $parameter = $in.Parameters[$parameterName]
+        $potentialType = $parameter.ParameterType
+        # PowerShell parameters can have aliases, so lets find all potential names.
+        $parameterNames = @($parameter.Name;$parameter.Aliases) -ne ''
+        foreach ($PotentialName in $parameterNames) {
+            foreach ($arg in $args) {
+                if ($arg -isnot [Collections.IDictionary]) { continue }
+                if ($arg[$potentialName] -and $arg[$potentialName] -as $potentialType) {
+                    if ($potentialType -eq [Collections.IDictionary]) {
+                        if (-not $splat[$parameterName]) {
+                            $splat[$parameterName] = [Ordered]@{}
+                        }
+                        foreach ($key in $arg[$potentialName].Keys) {
+                            $splat[$parameterName][$key] = $arg[$potentialName][$key]
+                        }
+                    } else {
+                        $splat[$parameterName] = $arg[$potentialName]
+                    }
+                }
+            }
+        }
+    }
+    return $splat
+}
+#endregion PowerShell Specific Filters
+
 #region Special Filters
 filter content {$Content}
 
