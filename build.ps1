@@ -25,7 +25,8 @@ $Site['Files'] = [ordered]@{}
 # Any `*.*.*.ps1` beneath /xrpc/ will be conisdered an indexer.
 
 $xrpcOutputRoot = Join-Path $PSScriptRoot docs |
-    Join-Path -childPath xrpc    
+    Join-Path -childPath xrpc
+        
 foreach ($xrpcIndexFile in 
     Get-ChildItem -Path $psScriptRoot -Filter xrpc | 
     Get-ChildItem -filter *.*.*.ps1 
