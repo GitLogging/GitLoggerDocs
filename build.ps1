@@ -10,6 +10,9 @@ Set-Alias 'layout' -Value ( Get-Item -ea 'stop'  './layout.ps1' )
 
 . './filters.ps1'
 
+$Site = [Ordered]@{}
+$Site['LastBuildTime'] = $LastBuildTime = [DateTime]::Now
+$Site['Files'] = [ordered]@{}
 
 #region index data in `/xrpc/`
 
@@ -55,11 +58,6 @@ foreach ($xrpcIndexFile in
 }
 
 #endregion index data in `/xrpc/`
-
-
-$Site = [Ordered]@{}
-$Site['LastBuildTime'] = $LastBuildTime = [DateTime]::Now
-$Site['Files'] = [ordered]@{}
 
 $Files_Template = gci './docs/template' -File -recurse
     | ?{ $_.Extension -match '\.(css|html|js|json|ps1)' }
