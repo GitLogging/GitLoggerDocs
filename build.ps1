@@ -23,6 +23,9 @@ $Site['Files'] = [ordered]@{}
 # We'll call each script that generates xrpc an "indexer"
 # (because it generates an index of the content)
 # Any `*.*.*.ps1` beneath /xrpc/ will be conisdered an indexer.
+
+$xrpcOutputRoot = Join-Path $PSScriptRoot docs |
+    Join-Path -childPath xrpc    
 foreach ($xrpcIndexFile in 
     Get-ChildItem -Path $psScriptRoot -Filter xrpc | 
     Get-ChildItem -filter *.*.*.ps1 
@@ -37,9 +40,7 @@ foreach ($xrpcIndexFile in
     $xrpcNsid = $xrpcScript.Name -replace '\.ps1$'
     
     # Once we know the NSID, we can start to construct the directory.
-    $xrpcOutputDirectory = 
-        Join-Path $psScriptRoot xrpc | 
-        Join-Path -ChildPath $xrpcNsid    
+    $xrpcOutputDirectory = Join-Path $xrpcOutputRoot $xrpcNsid
     
     # Fun fact number #2:
     # We can use an index.json file to return static json.
