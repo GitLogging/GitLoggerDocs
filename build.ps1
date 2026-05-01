@@ -8,6 +8,8 @@ param(
 ":::build.ps1:::Started $( Get-Date )" | Write-Host
 Set-Alias 'layout' -Value ( Get-Item -ea 'stop'  './layout.ps1' )
 
+. './filters.ps1'
+
 $Site = [Ordered]@{}
 $Site['LastBuildTime'] = $LastBuildTime = [DateTime]::Now
 $Site['Files'] = [ordered]@{}
