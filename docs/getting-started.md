@@ -1,3 +1,14 @@
+## Using the GitLogger GitHub Action
+
+If your repository is on GitHub, you can use the [GitLogger Github Action](https://github.com/GitLogging/GitLoggerAction) to get up and running.
+
+Just copy/paste this step into any job. Use a "push" trigger to make sure you capture every commit.
+
+```yaml
+- name: Run GitLogger
+  uses: GitLogging/GitLoggerAction@main
+```
+
 ## Pushing Changes directly
 
 If your repository is not on GitHub, you'll have to use a bit of PowerShell to import your logs.
