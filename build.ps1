@@ -26,7 +26,7 @@ $Site['Files'] = [ordered]@{}
 
 $xrpcOutputRoot = Join-Path $PSScriptRoot docs |
     Join-Path -childPath xrpc
-        
+
 foreach ($xrpcIndexFile in 
     Get-ChildItem -Path $psScriptRoot -Filter xrpc | 
     Get-ChildItem -filter *.*.*.ps1 
@@ -82,6 +82,22 @@ foreach($file in $PSFiles_Html) {
         | Layout # -PageTitle 'GitLogger'
         | Set-Content -path $OutFilePath -encoding utf8
     ':::build.ps1:::wrote: "{0}"' -f $OutFilePath | Write-Host
+}
+
+$DraftsRoot = Join-Path $PSScriptRoot docs | 
+    Join-Path -ChildPath 'drafts'
+
+if (-not (Test-Path $DraftsRoot)) {
+    New-Item -ItemType Directory -Path $DraftsRoot -Force
+}
+
+foreach ($draft in $site['com.github.api.repos.issues.drafts']) {
+    $draftOutput = Join-Path $DraftsRoot "$($draft.number).html"
+    $draft.body | 
+        from_markdown |
+        layout |
+        Set-Content -Path $draftOutput -Encoding UTF8
+
 }
 
 if( -not (Test-Path './output')) {
