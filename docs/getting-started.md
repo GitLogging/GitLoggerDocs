@@ -14,7 +14,7 @@ Just copy/paste this step into any job. Use a "push" trigger to make sure you ca
 If your repository is not on GitHub, you'll have to use a bit of PowerShell to import your logs.
 
 You'll also need to install [ugit](https://github.com/StartAutomating/ugit) from the PowerShell gallery.
-            
+
 ```ps1
 # Fetch all of your git history
 git fetch --unshallow | Write-Verbose
@@ -45,6 +45,9 @@ if (-not $gotResponse) {
     return
 }
 
-$repoRestUrl = $gitLoggerPushUrl + '/' + ($gitRemoteUrl.RemoteUrl -replace '^(?>https?|git|ssh)://' -replace '\.git$') + '.git'
+$repoRestUrl = $gitLoggerPushUrl + 
+    '/' + 
+    ($gitRemoteUrl.RemoteUrl -replace '^(?>https?|git|ssh)://' -replace '\.git$') + '.git'
+
 Invoke-RestMethod -Uri $repoRestUrl -Body $allJson -Method Post
 ```
