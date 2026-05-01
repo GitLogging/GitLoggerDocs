@@ -29,9 +29,7 @@ if (-not $script:Cache) {
 }
 
 
-$DraftsUrl = "https://api.github.com/repos/$Organization/$Repository/issues?per_page=100&labels=Drafts"
-
-
+$DraftsUrl = "https://api.github.com/repos/$Organization/$Repository/issues?per_page=100&labels=Draft"
 
 if (-not $script:Cache[$DraftsUrl]) {
     $script:Cache[$DraftsUrl] = Invoke-RestMethod -Uri $DraftsUrl |
